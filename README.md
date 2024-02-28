@@ -1,11 +1,11 @@
 # App Hibrida
-Desarrollada por: 
+**Desarrollada por:** 
 
-Daniel Andrade,
+Daniel Andrade
 
-Emanuel Gómez,
+Emanuel Gómez
 
-Pablo Loaiza,
+Pablo Loaiza
 
 ## Diseño en Figma
 https://www.figma.com/file/LqIMVrBkx17bfuBDuLpqJL/Aplicaciones-moviles-taller-2?type=design&node-id=0%3A1&mode=design&t=0yEFnQlPHJpCPYWb-1
