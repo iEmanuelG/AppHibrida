@@ -1,7 +1,49 @@
 body {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.splash-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.1s ease-in-out;
+  opacity: 1;
+  background-color: white;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.splash-container.fadeOut {
+  opacity: 0;
+}
+
+.easy {
+  transition: opacity 0.2s ease-in-out;
+  opacity: 1;
+}
+
+.easy.fadeOut {
+  opacity: 0;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(63, 64, 65, 0.521);
+  border-radius: 15px;
+  font-weight: 900;
+  font-size: 4rem;
 }
