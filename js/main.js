@@ -1,8 +1,9 @@
 
+//Splash Screen
 document.addEventListener('DOMContentLoaded', function () {
     const splashContainer = document.querySelector('.splash-container');
     const easy = document.querySelector('.easy');
-
+    const homeHeader = document.querySelector('.home-header');
     setTimeout(function () {
         easy.classList.add('fadeOut');
         setTimeout(function () {
@@ -12,6 +13,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 1500);
     setTimeout(function () {
         splashContainer.classList.add('fadeOut');
+        homeHeader.classList.add('fadeIn');
     }, 3000);
 
 });
+
+
+
+//Grupos
+
