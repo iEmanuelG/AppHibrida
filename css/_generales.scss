@@ -1,5 +1,6 @@
 :root {
     --main-color: #f0f0f0;
+    --title-font: "Press Start 2P", system-ui;
 }
 
 body {
@@ -11,7 +12,7 @@ body {
 }
 
 header {
-    font-family: "Press Start 2P", system-ui;
+    font-family: var(--title-font);
     position: sticky;
     top: 0;
     z-index: 1;

@@ -12,7 +12,8 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    font-size: 24;
+    font-size: 12;
+    font-family: var(--title-font);
 }
 
 
@@ -28,18 +29,18 @@
     border: none;
     padding: 5px;
     border-radius: 15px;
-    font-size: 24;
+    font-size: 12;
     font-weight: 900;
     height: 208px;
     width: 208px;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    font-family: var(--title-font);
 }
 
 
-/*floating button*/
+/*agregar nota*/
 #floating-button {
     position: fixed;
     bottom: 20px;
