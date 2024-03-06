@@ -17,7 +17,7 @@
     </div>
   </div>
   <header class="home-header">
-    <h1>E-Notes</h1>
+    <h1>EASY-NOTE</h1>
   </header>
 
   <section class="groups-container">
@@ -25,10 +25,29 @@
       <h2>Groups</h2>
       <a href="groups.html"><i class='bx bx-chevron-right' style="font-size: xx-large; cursor: pointer;"></i></a>
     </div>
+    <div class="carousel">
+      <div class="group" id="add-group">
+        <p>AGREGAR GRUPO</p>
+      </div>
+    </div>
   </section>
 
-  <script src=" js/main.js">
-  </script>
+  <section class="tareas-container">
+
+  </section>
+
+  <div id="popup" class="hidden">
+    <h2>Nueva tarea</h2>
+    <label for="titulo">Título:</label>
+    <input id="titulo" type="text">
+    <label for="texto">Texto:</label>
+    <textarea id="texto"></textarea>
+    <button id="add-task">Agregar tarea</button>
+  </div>
+
+  <button id="floating-button"><i class='bx bx-plus'></i></button>
+
+  <script src=" js/main.js"></script>
 </body>
 
 </html>

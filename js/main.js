@@ -22,3 +22,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //Grupos
 
+
+
+//button
+
+document.getElementById('floating-button').addEventListener('click', function () {
+    document.getElementById('popup').classList.remove('hidden');
+});
+
+document.getElementById('add-task').addEventListener('click', function () {
+    var titulo = document.getElementById('titulo').value;
+    var texto = document.getElementById('texto').value;
+
+    var tareaDiv = document.createElement('div');
+    tareaDiv.classList.add('tarea');
+
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    tareaDiv.appendChild(checkbox);
+
+    var tituloTarea = document.createElement('div');
+    tituloTarea.classList.add('titulo-tarea');
+
+    var tituloH2 = document.createElement('h2');
+    tituloH2.textContent = titulo;
+    tituloTarea.appendChild(tituloH2);
+
+    var fechaActual = new Date();
+    var fechaP = document.createElement('p');
+    fechaP.textContent = fechaActual.toLocaleDateString();
+    tituloTarea.appendChild(fechaP);
+
+    var textTarea = document.createElement('div');
+    textTarea.classList.add('text-tarea');
+
+    var textoP = document.createElement('p');
+    textoP.textContent = texto;
+    textTarea.appendChild(textoP);
+
+    var contentTarea = document.createElement('div');
+    contentTarea.classList.add('content-tarea');
+
+
+    contentTarea.appendChild(tituloTarea);
+    contentTarea.appendChild(textTarea);
+    tareaDiv.appendChild(contentTarea);
+    document.querySelector('.tareas-container').appendChild(tareaDiv);
+
+    // Limpia los campos de entrada y oculta la ventana emergente
+    document.getElementById('titulo').value = '';
+    document.getElementById('texto').value = '';
+    document.getElementById('popup').classList.add('hidden');
+});
