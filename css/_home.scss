@@ -1,0 +1,124 @@
+.groups-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+}
+
+.groups-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 24;
+}
+
+
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.group {
+    background-color: var(--main-color);
+    border: none;
+    padding: 5px;
+    border-radius: 15px;
+    font-size: 24;
+    font-weight: 900;
+    height: 208px;
+    width: 208px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+/*floating button*/
+#floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 100%;
+    font-size: 50px;
+    font-weight: 900;
+    border: none;
+    text-align: center;
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    margin: 5px;
+}
+
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: white;
+    border: 1px solid rgb(90, 85, 85);
+    border-radius: 15px;
+    z-index: 100;
+    height: 80%;
+    width: 65%;
+}
+
+.tareas-container {
+    margin: 31px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: fit-content;
+    overflow-y: auto;
+}
+
+.tarea {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 31px;
+    height: 115px;
+    overflow: hidden;
+    background-color: var(--main-color);
+    border-radius: 15px;
+    margin-bottom: 31px;
+    width: 80%;
+}
+
+.content-tarea {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 31px;
+    width: 100%;
+}
+
+.titulo-tarea {
+    font-size: 24;
+    font-weight: 900;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-tarea {
+    font-size: 12;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hidden {
+    display: none;
+}
