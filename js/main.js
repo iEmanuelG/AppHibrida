@@ -1,4 +1,6 @@
 
+
+
 //Splash Screen
 document.addEventListener('DOMContentLoaded', function () {
     const splashContainer = document.querySelector('.splash-container');
@@ -20,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-//Grupos
 
 
 
