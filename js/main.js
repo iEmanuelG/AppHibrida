@@ -21,11 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-
-
-
-//button
+//add task
 
 document.getElementById('floating-button').addEventListener('click', function () {
     document.getElementById('fecha').innerText = new Date().toLocaleDateString();
@@ -75,6 +71,12 @@ document.getElementById('add-task').addEventListener('click', function () {
     document.querySelector('.tareas-container').appendChild(tareaDiv);
 
     // Limpia los campos de entrada y oculta la ventana emergente
+    document.getElementById('titulo').value = '';
+    document.getElementById('texto').value = '';
+    document.getElementById('popup').style.display = 'none';
+});
+
+document.getElementById('cancel-task').addEventListener('click', function () {
     document.getElementById('titulo').value = '';
     document.getElementById('texto').value = '';
     document.getElementById('popup').style.display = 'none';
