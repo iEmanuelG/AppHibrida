@@ -15,7 +15,7 @@
 }
 
 .splash-container.fadeOut {
-    opacity: 0;
+    display: none;
 }
 
 .easy {
@@ -34,7 +34,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(63, 64, 65, 0.521);
+    background-color: var(--second-color);
     border-radius: 15px;
     font-weight: 900;
     font-size: 4rem;

@@ -1,4 +1,6 @@
 
+
+
 //Splash Screen
 document.addEventListener('DOMContentLoaded', function () {
     const splashContainer = document.querySelector('.splash-container');
@@ -19,15 +21,14 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-//Grupos
-
-
-
-//button
+//add task
 
 document.getElementById('floating-button').addEventListener('click', function () {
-    document.getElementById('popup').classList.remove('hidden');
+    document.getElementById('fecha').innerText = new Date().toLocaleDateString();
+    var popup = document.getElementById('popup');
+    popup.classList.remove('hidden');
+    popup.style.display = 'flex';
+
 });
 
 document.getElementById('add-task').addEventListener('click', function () {
@@ -72,5 +73,11 @@ document.getElementById('add-task').addEventListener('click', function () {
     // Limpia los campos de entrada y oculta la ventana emergente
     document.getElementById('titulo').value = '';
     document.getElementById('texto').value = '';
-    document.getElementById('popup').classList.add('hidden');
+    document.getElementById('popup').style.display = 'none';
+});
+
+document.getElementById('cancel-task').addEventListener('click', function () {
+    document.getElementById('titulo').value = '';
+    document.getElementById('texto').value = '';
+    document.getElementById('popup').style.display = 'none';
 });
