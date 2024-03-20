@@ -20,14 +20,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+//add group
+document.getElementById('add-group').addEventListener('click', function () {
+    var popUpGroup = document.getElementById('popUpGroup');
+    popUpGroup.classList.remove('hidden');
+    popUpGroup.style.display = 'flex';
+});
+
+
+
+/*document.getElementById("bgcolor").addEventListener("input", function () {
+    document.body.style.backgroundColor = this.value;
+}, false);*/
+
+document.getElementById('save-group').addEventListener('click', function () {
+    var titulo = document.getElementById('tituloGroup').value;
+    var color = document.getElementById("bgcolor").value;
+    var groupDiv = document.createElement('div');
+    groupDiv.classList.add('group');
+    groupDiv.style.backgroundColor = color;
+
+    var tituloGroup = document.createElement('p');
+    tituloGroup.textContent = titulo;
+    groupDiv.appendChild(tituloGroup);
+
+
+    document.querySelector('.carousel').appendChild(groupDiv);
+
+    // Limpia los campos de entrada y oculta la ventana emergente
+    document.getElementById('tituloGroup').value = '';
+    document.getElementById('bgcolor').value = '#ffffff';
+    document.getElementById('popUpGroup').style.display = 'none';
+    color = '#ffffff';
+});
+
+document.getElementById('cancel-group').addEventListener('click', function () {
+    document.getElementById('tituloGroup').value = '';
+    document.getElementById('bgcolor').value = '#ffffff';
+    document.getElementById('popUpGroup').style.display = 'none';
+});
 
 //add task
 
 document.getElementById('floating-button').addEventListener('click', function () {
     document.getElementById('fecha').innerText = new Date().toLocaleDateString();
-    var popup = document.getElementById('popup');
-    popup.classList.remove('hidden');
-    popup.style.display = 'flex';
+    var popUpNote = document.getElementById('popUpNote');
+    popUpNote.classList.remove('hidden');
+    popUpNote.style.display = 'flex';
 
 });
 
@@ -74,11 +113,11 @@ document.getElementById('add-task').addEventListener('click', function () {
     // Limpia los campos de entrada y oculta la ventana emergente
     document.getElementById('titulo').value = '';
     document.getElementById('texto').value = '';
-    document.getElementById('popup').style.display = 'none';
+    document.getElementById('popUpNote').style.display = 'none';
 });
 
 document.getElementById('cancel-task').addEventListener('click', function () {
     document.getElementById('titulo').value = '';
     document.getElementById('texto').value = '';
-    document.getElementById('popup').style.display = 'none';
+    document.getElementById('popUpNote').style.display = 'none';
 });

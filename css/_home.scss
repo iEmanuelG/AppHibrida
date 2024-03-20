@@ -3,7 +3,6 @@
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
-    background-color: white;
     margin-top: 31px;
 }
 
@@ -51,6 +50,33 @@
     font-family: var(--title-font);
 }
 
+/* agregar grupo*/
+
+#popUpGroup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: white;
+    border: 1px solid var(--third-color);
+    border-radius: 15px;
+    z-index: 100;
+    height: fit-content;
+    width: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    input[type="color"] {
+        appearance: none;
+        width: 60px;
+        height: 60px;
+        border: 3px solid var(--second-color);
+        border-radius: 10px;
+
+    }
+}
 
 
 
@@ -72,7 +98,7 @@
     margin: 5px;
 }
 
-#popup {
+#popUpNote {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -88,14 +114,16 @@
     align-items: flex-start;
 }
 
-#popup div {
+#popUpNote div,
+#popUpGroup div {
     display: flex;
     justify-content: space-around;
     align-items: center;
     width: 100%;
 }
 
-#popup div button {
+#popUpNote div button,
+#popUpGroup div button {
     width: 65px;
     height: 65px;
     font-size: 60px;
@@ -114,7 +142,8 @@ textarea {
     padding: 15px;
 }
 
-#titulo {
+#titulo,
+#tituloGroup {
     font-size: 24;
     font-weight: 900;
     border: none;
@@ -125,6 +154,7 @@ textarea {
     overflow: hidden;
     resize: none;
     margin: 20px 0 20px 0;
+    padding: 20px 0 20px 0;
 }
 
 #texto {
