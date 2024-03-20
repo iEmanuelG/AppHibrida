@@ -6,11 +6,10 @@
     overflow: hidden;
     overflow-y: scroll;
     padding-top: 10px;
-   
     flex-wrap: wrap;
 }
 
-.carousel_grupos > a{
+.carousel_grupos>a {
     text-decoration: none;
     color: black;
 }
@@ -26,13 +25,13 @@
     height: 130px;
     width: 130px;
     display: grid;
-    
+
     font-family: var(--title-font);
 }
 
 
 
-.group_grupos > img{
+.group_grupos>img {
     grid-area: 1/1;
     object-fit: cover;
     width: 100%;
@@ -40,7 +39,7 @@
     filter: blur(3px) brightness(85%);
 }
 
-.group_grupos > p {
+.group_grupos>p {
     font-size: 1rem;
     grid-area: 1/1;
     z-index: 1;
@@ -48,4 +47,4 @@
     justify-self: center;
     color: #fff;
     text-shadow: 0 0 5px rgb(0, 0, 0);
-  }
+}

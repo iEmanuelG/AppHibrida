@@ -1,5 +1,5 @@
 
-
+var groupsDiv = [];
 
 //Splash Screen
 document.addEventListener('DOMContentLoaded', function () {
@@ -51,6 +51,8 @@ document.getElementById('save-group').addEventListener('click', function () {
     document.getElementById('tituloGroup').value = '';
     document.getElementById('bgcolor').value = '#ffffff';
     document.getElementById('popUpGroup').style.display = 'none';
+    groupsDiv.push({ titulo, color })
+    localStorage.setItem('groups', JSON.stringify(groupsDiv));
     color = '#ffffff';
 });
 
