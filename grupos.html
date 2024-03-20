@@ -2,13 +2,84 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grupos</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Notes</title>
+  <link rel="stylesheet" href="css/main.scss" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
-<body>
-    <h1>Groups</h1>
-</body>
+<body style="margin: 2px;">
+  <header class="home-header">
+    EASY-NOTE
+    <section class="groups-container">
+      <div class="groups-header">
+        <h2>Grupos</h2>
+      </div>
+      <div class="carousel_grupos">
+        <a href="./grupo.html">
+            <div class="group_grupos" id="open-group">
+            <p>Title</p>
+            </div>
+        </a>
+        <a href="./grupo.html">
+            <div class="group_grupos" id="open-group">
+            <p>Title</p>
+            </div>
+        </a>
+        <a href="./grupo.html">
+            <div class="group_grupos" id="open-group">
+            <p>Title</p>
+            </div>
+        </a>
+        <a href="./grupo.html">
+            <div class="group_grupos" id="open-group">
+            <p>Title</p>
+            </div>
+        </a>
+        <a href="./grupo.html">
+            <div class="group_grupos" id="open-group">
+            <p>Title</p>
+            </div>
+        </a>
+        <a href="./grupo.html">
+            <div class="group_grupos" id="open-group">
+            <p>Title</p>
+            </div>
+        </a>
+        <a href="./grupo.html">
+            <div class="group_grupos" id="open-group">
+            <p>Title</p>
+            </div>
+        </a>
+        </div>
+      </div>
+    </section>
+  </header>
 
+
+
+  <section class="tareas-container">
+
+  </section>
+
+  <div id="popup" class="hidden">
+    <input id="titulo" placeholder="Nueva tarea" type="text">
+    <Label id="fecha"></Label>
+    <textarea id="texto"></textarea>
+    <div>
+      <button id="cancel-task"><i class='bx bx-x'></i></button>
+      <button id="add-task"><i class='bx bx-check'></i></button>
+    </div>
+  </div>
+
+  <button id="floating-button"><i class='bx bx-plus'></i></button>
+  <button class="back-button"><a href="./index.html">&lt;</a></button>
+
+</body>
 </html>
+
+<script>
+    const homeHeader = document.querySelector('.home-header');
+    homeHeader.classList.add('fadeIn');
+</script>

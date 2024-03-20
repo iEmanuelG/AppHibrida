@@ -43,12 +43,17 @@ header {
     opacity: 1;
 }
 
-.back-btn {
+.back-button {
     background: none;
-    border: none;
     position: absolute;
+    border: none;
     left: 0;
     top: 0;
-    margin: 20px;
-    font-size: 2rem;
+    margin: 10px;
+    font-size: 2.5rem;
+}
+
+.back-button > a{
+    text-decoration: none;
+    color: black;
 }
