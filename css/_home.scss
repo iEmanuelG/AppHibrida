@@ -123,54 +123,77 @@ textarea {
     margin: 31px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     width: 100%;
     height: fit-content;
     box-sizing: border-box;
+
+    .tarea {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 16px;
+        height: 11px;
+        background-color: var(--main-color);
+        border-radius: 15px;
+        margin-bottom: 31px;
+        width: 95%;
+
+        .content-tarea {
+            display: flex;
+            flex-direction: column;
+            padding-left: 31px;
+            width: 100%;
+
+            .titulo-tarea {
+                margin: 0;
+                padding: 0;
+                font-size: 14;
+                font-weight: 900;
+                width: 100%;
+            }
+
+            .fecha-tarea {
+                font-size: 10;
+                margin: 0;
+                padding: 0;
+            }
+
+            .text-tarea {
+                font-size: 12;
+                width: 100%;
+                overflow: hidden;
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        height: fit-content;
+
+        input[type="checkbox"] {
+            appearance: none;
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--second-color);
+            border-radius: 10px;
+
+            &:checked {
+                background-color: var(--third-color);
+            }
+        }
+    }
 }
 
-.tarea {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 31px;
-    height: 115;
-    overflow: hidden;
-    background-color: var(--main-color);
-    border-radius: 15px;
-    margin-bottom: 31px;
-    width: 80%;
-}
 
-.content-tarea {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding-left: 31px;
-    width: 100%;
-}
 
-.titulo-tarea {
-    font-size: 18;
-    font-weight: 900;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-}
 
-.fecha-tarea {
-    font-size: 12;
-}
 
-.text-tarea {
-    font-size: 12;
-    width: 100%;
-    overflow: hidden;
-}
+
+
+
+
+
 
 .hidden {
     display: none;

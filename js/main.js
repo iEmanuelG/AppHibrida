@@ -50,9 +50,9 @@ document.getElementById('add-task').addEventListener('click', function () {
     tituloTarea.appendChild(tituloH2);
 
     var fechaActual = new Date();
-    var fechaP = document.createElement('p');
+    var fechaP = document.createElement('div');
+    fechaP.classList.add('fecha-tarea');
     fechaP.textContent = fechaActual.toLocaleDateString();
-    tituloTarea.appendChild(fechaP);
 
     var textTarea = document.createElement('div');
     textTarea.classList.add('text-tarea');
@@ -66,6 +66,7 @@ document.getElementById('add-task').addEventListener('click', function () {
 
 
     contentTarea.appendChild(tituloTarea);
+    contentTarea.appendChild(fechaP);
     contentTarea.appendChild(textTarea);
     tareaDiv.appendChild(contentTarea);
     document.querySelector('.tareas-container').appendChild(tareaDiv);
