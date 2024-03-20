@@ -17,7 +17,7 @@
     border-radius: 15px;
     font-size: 12;
     font-weight: 900;
-    height: 70px;
+    height: 80px;
     width: 100%;
     display: flex;
     justify-content: start;
@@ -34,11 +34,15 @@
 
 .note_grupo_inside > p{
     margin: 0px;
-    width: 100%;
-    height: 22px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 8px;
+    width: 95%;
+    height: 30px;
     overflow-y: hidden;
     word-wrap: break-word;
     color: #626161;
+    text-align: start;
 }
 
 .header_note_grupo{
@@ -63,6 +67,7 @@ input[type="checkbox"] {
     width: 24px;
     height: 24px;
     border: 3px solid #626161;
+    border-radius: 20%;
     cursor: pointer;
   }
 
