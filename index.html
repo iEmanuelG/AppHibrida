@@ -18,7 +18,7 @@
   </div>
   <header class="home-header">
     EASY-NOTE
-    <section class="groups-container">
+    <section class="groups-container" style="background-color: white; width: 100%;">
       <div class="groups-header">
         <h2>Grupos</h2>
         <a href="./grupos.html">
@@ -30,35 +30,26 @@
         <div class="group" id="add-group">
           <p>AGREGAR GRUPO</p>
         </div>
-        <div class="group" id="add-group">
-          <p>AGREGAR GRUPO</p>
-        </div>
-        <div class="group" id="add-group">
-          <p>AGREGAR GRUPO</p>
-        </div>
-        <div class="group" id="add-group">
-          <p>AGREGAR GRUPO</p>
-        </div>
-        <div class="group" id="add-group">
-          <p>AGREGAR GRUPO</p>
-        </div>
-        <div class="group" id="add-group">
-          <p>AGREGAR GRUPO</p>
-        </div>
-        <div class="group" id="add-group">
-          <p>AGREGAR GRUPO</p>
-        </div>
       </div>
     </section>
   </header>
 
-
+  <div id="popUpGroup" class="hidden">
+    <div>
+      <input id="tituloGroup" placeholder="Nuevo Grupo" type="text">
+      <input type="color" id="bgcolor" name="bgcolor" value="#ffffff">
+    </div>
+    <div>
+      <button id="cancel-group"><i class='bx bx-x'></i></button>
+      <button id="save-group"><i class='bx bx-check'></i></button>
+    </div>
+  </div>
 
   <section class="tareas-container">
 
   </section>
 
-  <div id="popup" class="hidden">
+  <div id="popUpNote" class="hidden">
     <input id="titulo" placeholder="Nueva tarea" type="text">
     <Label id="fecha"></Label>
     <textarea id="texto"></textarea>
