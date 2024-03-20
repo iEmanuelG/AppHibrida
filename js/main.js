@@ -1,5 +1,5 @@
 
-
+var groupsDiv = [];
 
 //Splash Screen
 document.addEventListener('DOMContentLoaded', function () {
@@ -20,6 +20,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+<<<<<<< HEAD
+=======
+//add group
+document.getElementById('add-group').addEventListener('click', function () {
+    var popUpGroup = document.getElementById('popUpGroup');
+    popUpGroup.classList.remove('hidden');
+    popUpGroup.style.display = 'flex';
+});
+
+
+
+/*document.getElementById("bgcolor").addEventListener("input", function () {
+    document.body.style.backgroundColor = this.value;
+}, false);*/
+
+document.getElementById('save-group').addEventListener('click', function () {
+    var titulo = document.getElementById('tituloGroup').value;
+    var color = document.getElementById("bgcolor").value;
+    var groupDiv = document.createElement('div');
+    groupDiv.classList.add('group');
+    groupDiv.style.backgroundColor = color;
+
+    var tituloGroup = document.createElement('p');
+    tituloGroup.textContent = titulo;
+    groupDiv.appendChild(tituloGroup);
+
+
+    document.querySelector('.carousel').appendChild(groupDiv);
+
+    // Limpia los campos de entrada y oculta la ventana emergente
+    document.getElementById('tituloGroup').value = '';
+    document.getElementById('bgcolor').value = '#ffffff';
+    document.getElementById('popUpGroup').style.display = 'none';
+    groupsDiv.push({ titulo, color })
+    localStorage.setItem('groups', JSON.stringify(groupsDiv));
+    color = '#ffffff';
+});
+
+document.getElementById('cancel-group').addEventListener('click', function () {
+    document.getElementById('tituloGroup').value = '';
+    document.getElementById('bgcolor').value = '#ffffff';
+    document.getElementById('popUpGroup').style.display = 'none';
+});
+>>>>>>> c7d7248e8dddef8aee880f41a1f3d6ffc83de7d4
 
 //add task
 
