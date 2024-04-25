@@ -2,6 +2,7 @@
 var groupsDiv = [];
 
 //Splash Screen
+/*
 document.addEventListener('DOMContentLoaded', function () {
     const splashContainer = document.querySelector('.splash-container');
     const easy = document.querySelector('.easy');
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 3000);
 
 });
+*/
 
 //add group
 document.getElementById('add-group').addEventListener('click', function () {
