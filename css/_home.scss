@@ -26,6 +26,11 @@
     font-family: var(--title-font);
 }
 
+.groups-content {
+    display: flex;
+    width: 100%;
+}
+
 .carousel {
     display: flex;
     width: 100%;
@@ -48,6 +53,16 @@
     justify-content: center;
     align-items: center;
     font-family: var(--title-font);
+
+
+}
+
+#add-group {
+    height: fit-content;
+    width: fit-content;
+    padding: 20px;
+    border-radius: 100%;
+    margin-left: -64px;
 }
 
 /* agregar grupo*/
