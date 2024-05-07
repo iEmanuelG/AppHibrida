@@ -1,5 +1,6 @@
 
 var groupsDiv = [];
+var tasksDiv = [];
 
 //Splash Screen
 /*
@@ -53,6 +54,8 @@ document.getElementById('save-group').addEventListener('click', function () {
     document.getElementById('tituloGroup').value = '';
     document.getElementById('bgcolor').value = '#ffffff';
     document.getElementById('popUpGroup').style.display = 'none';
+    var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
+    groupsDiv = storedGroups;
     groupsDiv.push({ titulo, color })
     localStorage.setItem('groups', JSON.stringify(groupsDiv));
     color = '#ffffff';
@@ -118,6 +121,13 @@ document.getElementById('add-task').addEventListener('click', function () {
     document.getElementById('titulo').value = '';
     document.getElementById('texto').value = '';
     document.getElementById('popUpNote').style.display = 'none';
+
+    //localstorage
+    var storedTask = JSON.parse(localStorage.getItem('tasks')) ?? [];
+    tasksDiv = storedTask;
+    tasksDiv.push({ titulo, texto });
+    localStorage.setItem('tasks', JSON.stringify(tasksDiv));
+
 });
 
 document.getElementById('cancel-task').addEventListener('click', function () {
