@@ -3,13 +3,19 @@ var tasksDiv = [];
 
 //notas
 document.addEventListener('DOMContentLoaded', function () {
-    var storedTasks = JSON.parse(localStorage.getItem('tasks'));
-
-    for (let i = 0; i < storedTasks.length; i++) {
-        if (storedTasks[i]["grupo"] != "none")
-            document.querySelector('.tareas-container').appendChild(createNota(storedTasks[i]["titulo"], storedTasks[i]["texto"]));
+    var storedTasks = JSON.parse(localStorage.getItem('tasks')) ?? [];
+    var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
+    if (storedTasks.length != null) {
+        for (let i = 0; i < storedTasks.length; i++) {
+            if (storedTasks[i]["grupo"] == "none")
+                document.querySelector('.tareas-container').appendChild(createNota(storedTasks[i]["titulo"], storedTasks[i]["texto"]));
+        }
     }
-
+    if (storedGroups.length != null) {
+        for (let i = 0; i < storedGroups.length; i++) {
+            document.getElementById('group-list').appendChild(createGroup(storedGroups[i]["titulo"], storedGroups[i]["color"]));
+        }
+    }
 });
 
 
@@ -41,16 +47,7 @@ document.getElementById('save-group').addEventListener('click', function () {
         alert('El grupo ya existe');
     } else {
 
-        var groupDiv = document.createElement('div');
-        groupDiv.classList.add('group');
-        groupDiv.style.backgroundColor = color;
-
-        var tituloGroup = document.createElement('p');
-        tituloGroup.textContent = titulo;
-        groupDiv.appendChild(tituloGroup);
-
-
-        document.querySelector('.carousel').appendChild(groupDiv);
+        document.querySelector('.carousel').appendChild(createGroup(titulo, color));
 
         // Limpia los campos de entrada y oculta la ventana emergente
         document.getElementById('tituloGroup').value = '';
@@ -68,6 +65,43 @@ document.getElementById('cancel-group').addEventListener('click', function () {
     document.getElementById('bgcolor').value = '#ffffff';
     document.getElementById('popUpGroup').style.display = 'none';
 });
+
+function createGroup(titulo, color) {
+    var groupDiv = document.createElement('div');
+    groupDiv.classList.add('group');
+    groupDiv.style.backgroundColor = color;
+
+    var tituloGroup = document.createElement('p');
+    tituloGroup.textContent = titulo;
+    groupDiv.appendChild(tituloGroup);
+
+    groupDiv.addEventListener('dragover', function (event) {
+        event.preventDefault(); // Necesario para permitir soltar
+    });
+    groupDiv.addEventListener('drop', function (event) {
+        event.preventDefault(); // Evita la acción por defecto (como abrir un enlace)
+
+        // Obtén el id del elemento arrastrado desde los datos de la transferencia
+        var id = event.dataTransfer.getData('text');
+        var storedTask = JSON.parse(localStorage.getItem('tasks'));
+        var tasks = [];
+        tasks = storedTask;
+
+
+        for (let i = 0; i < tasks.length; i++) {
+            if (tasks[i]["titulo"] == id) {
+                tasks[i]["grupo"] = titulo;
+                console.log(tasks[i]["grupo"]);
+            }
+        }
+
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    });
+
+    return groupDiv;
+
+}
 
 //add task
 
@@ -144,12 +178,12 @@ function createNota(titulo, texto) {
     contentTarea.appendChild(fechaP);
     contentTarea.appendChild(textTarea);
     tareaDiv.appendChild(contentTarea);
-
+    tareaDiv.setAttribute('data-id', titulo);
     tareaDiv.setAttribute('draggable', 'true');
     tareaDiv.addEventListener('dragstart', handleDragStart);
-    tareaDiv.addEventListener('dragend', handleDragEnd);
-    tareaDiv.addEventListener('dragend', handleDragEnd);
-    tareaDiv.addEventListener('drop', handleDrop);
+    //tareaDiv.addEventListener('dragend', handleDragEnd);
+    //tareaDiv.addEventListener('dragend', handleDragEnd);
+    //tareaDiv.addEventListener('drop', handleDrop);
 
     return tareaDiv;
 }
@@ -157,12 +191,11 @@ function createNota(titulo, texto) {
 var dragSrcEl = null;
 
 function handleDragStart(e) {
-    this.style.opacity = '0.4';
-
-    dragSrcEl = this;
+    this.style.opacity = '0.8';
 
     e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', this.innerHTML);
+    e.dataTransfer.setData('text', e.target.dataset.id);
+    console.log(e.target.dataset.id);
 }
 
 function handleDragOver(e) {
@@ -175,6 +208,32 @@ function handleDragOver(e) {
     return false;
 }
 
+function dropForGroup(titulo) {
+    event.preventDefault(); // Evita la acción por defecto (como abrir un enlace)
+
+    // Obtén el id del elemento arrastrado desde los datos de la transferencia
+    var id = event.dataTransfer.getData('text');
+    var storedTask = JSON.parse(localStorage.getItem('tasks'));
+    console.log(id);
+    console.log(event.target.dataset.id);
+    var tasks = [];
+    tasks = storedTask;
+
+
+    for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i]["titulo"] == id) {
+            console.log(tasks[i]["titulo"]);
+            console.log(tasks[i]["grupo"]);
+            tasks[i]["grupo"] = titulo;
+            console.log(tasks[i]["grupo"]);
+        }
+    }
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+
+
+};
+/*
 function handleDragEnter(e) {
     this.classList.add('over');
 }
@@ -183,21 +242,19 @@ function handleDragLeave(e) {
     this.classList.remove('over');
 }
 
-class handleDrop {
-    constructor(e) {
-        if (e.stopPropagation) {
-            e.stopPropagation(); // stops the browser from redirecting.
-        }
-
-        if (dragSrcEl != this) {
-            dragSrcEl.innerHTML = this.innerHTML;
-            this.innerHTML = e.dataTransfer.getData('text/html');
-        }
-
-        return false;
+function handleDrop(e) {
+    if (e.stopPropagation) {
+        e.stopPropagation(); // stops the browser from redirecting.
     }
-}
 
+    if (dragSrcEl != this) {
+        dragSrcEl.innerHTML = this.innerHTML;
+        this.innerHTML = e.dataTransfer.getData('text/html');
+    }
+
+
+}
+*/
 function handleDragEnd(e) {
     this.style.opacity = '1';
 
