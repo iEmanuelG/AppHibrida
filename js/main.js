@@ -116,6 +116,7 @@ document.getElementById('floating-button').addEventListener('click', function ()
 
 
 document.getElementById('add-task').addEventListener('click', function () {
+    var fechaActual = new Date();
     var titulo = document.getElementById('titulo').value;
     var texto = document.getElementById('texto').value;
 
@@ -129,7 +130,7 @@ document.getElementById('add-task').addEventListener('click', function () {
     //localstorage
     var storedTask = JSON.parse(localStorage.getItem('tasks')) ?? [];
     tasksDiv = storedTask;
-    tasksDiv.push({ titulo, texto, "grupo": "none" });
+    tasksDiv.push({ titulo, texto, "fecha": fechaActual.toLocaleDateString(), "grupo": "none", "chacked": false });
     localStorage.setItem('tasks', JSON.stringify(tasksDiv));
 
 });
@@ -207,32 +208,6 @@ function handleDragOver(e) {
 
     return false;
 }
-
-function dropForGroup(titulo) {
-    event.preventDefault(); // Evita la acción por defecto (como abrir un enlace)
-
-    // Obtén el id del elemento arrastrado desde los datos de la transferencia
-    var id = event.dataTransfer.getData('text');
-    var storedTask = JSON.parse(localStorage.getItem('tasks'));
-    console.log(id);
-    console.log(event.target.dataset.id);
-    var tasks = [];
-    tasks = storedTask;
-
-
-    for (let i = 0; i < tasks.length; i++) {
-        if (tasks[i]["titulo"] == id) {
-            console.log(tasks[i]["titulo"]);
-            console.log(tasks[i]["grupo"]);
-            tasks[i]["grupo"] = titulo;
-            console.log(tasks[i]["grupo"]);
-        }
-    }
-
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-
-
-};
 /*
 function handleDragEnter(e) {
     this.classList.add('over');
