@@ -1,12 +1,14 @@
 #carousel_grupos {
     display: flex;
-    flex-direction: row;
-    align-content: start;
-    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: start;
+    //justify-content: space-evenly;
+    //justify-items: flex-start;
     width: 100%;
     height: 600px;
     overflow: scroll;
     overflow-y: scroll;
+    padding: 5%;
     padding-top: 10px;
     flex-wrap: wrap;
 }
@@ -46,7 +48,7 @@
     height: 130px;
     width: 130px;
     display: grid;
-
+    flex: 1;
     font-family: var(--title-font);
 }
 

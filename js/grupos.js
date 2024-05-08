@@ -51,9 +51,10 @@ document.getElementById('save-group').addEventListener('click', function () {
     document.getElementById('tituloGroup').value = '';
     document.getElementById('bgcolor').value = '#ffffff';
     document.getElementById('popUpGroup').style.display = 'none';
+    var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
+    groupsDiv = storedGroups;
     groupsDiv.push({ titulo, color })
     localStorage.setItem('groups', JSON.stringify(groupsDiv));
-    console.log("Hola");
     color = '#ffffff';
 });
 
