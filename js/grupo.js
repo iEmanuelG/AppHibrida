@@ -11,26 +11,33 @@ function Load_Tasks(){
 
     if(storedTasks!==null){
         for (let i = 0; i < storedTasks.length; i++) {
-            var grupoHTML = `
-            <div class="note_grupo" id="open-note">
-                <input type="checkbox" name="checkbox" value="0" checked="Check">
-                <div class="note_grupo_inside">
-                    <div class="header_note_grupo">
-                        <h4>Title</h4>
-                        <h4>Date</h4>
+            if(storedTasks[i].grupo === grupo){
+                var grupoHTML = `
+                <div class="note_grupo" id="open-note">
+                    <input type="checkbox" name="checkbox" value="0" Check>
+                    <div class="note_grupo_inside">
+                        <div class="header_note_grupo">
+                            <h4>Title</h4>
+                            <h4>Date</h4>
+                        </div>
+                        <p>
+                            Text
+                        </p>
                     </div>
-                    <p>
-                        Text
-                    </p>
                 </div>
-            </div>
-            `
-    
-            grupoHTML = grupoHTML.replace('Title',storedTasks[i].titulo);
-            grupoHTML = grupoHTML.replace('Date',storedTasks[i].fecha);
-            grupoHTML = grupoHTML.replace('Text',storedTasks[i].texto);
-            grupoHTML = grupoHTML.replace('Check',storedTasks[i].checked);
-            groupListContainer.innerHTML += grupoHTML;
+                `
+        
+                grupoHTML = grupoHTML.replace('Title',storedTasks[i].titulo);
+                grupoHTML = grupoHTML.replace('Date',storedTasks[i].fecha);
+                grupoHTML = grupoHTML.replace('Text',storedTasks[i].texto);
+                var check = storedTasks[i].check;
+                console.log(check);
+                if(check)
+                    grupoHTML = grupoHTML.replace('Check','checked');
+                else 
+                    grupoHTML = grupoHTML.replace('Check',"");
+                groupListContainer.innerHTML += grupoHTML;
+            }
         }
     }
     console.log("hola");
@@ -40,11 +47,11 @@ document.getElementById('add-task').addEventListener('click', function(){
     const titulo = document.getElementById('titulo').value; 
     const fecha = document.getElementById('fecha').textContent; 
     const texto = document.getElementById('texto').value; 
-    const checked = false;
+    const check = false;
 
     var storedGroups = JSON.parse(localStorage.getItem('tasks')) ?? [];
     groupsDiv = storedGroups;
-    groupsDiv.push({ titulo, fecha, texto, grupo, checked }) ;
+    groupsDiv.push({ titulo, fecha, texto, grupo, check }) ;
     localStorage.setItem('tasks', JSON.stringify(groupsDiv));
 }); 
 
