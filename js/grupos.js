@@ -7,13 +7,14 @@ document.addEventListener('DOMContentLoaded', function () {
     for (let i = 0; i < storedGroups.length; i++) {
 
         var grupoHTML = `
-        <a href="./grupo.html">
+        <a href="./grupo.html" onclick="Group_Opened('TitleID')">
             <div class="group_grupos1" style="background-color: Color;" id="open-group1">
             <p>Title</p>
             </div>
         </a>
         `;
 
+        grupoHTML = grupoHTML.replace('TitleID',storedGroups[i].titulo);
         grupoHTML = grupoHTML.replace('Title',storedGroups[i].titulo);
         grupoHTML = grupoHTML.replace('Color',storedGroups[i].color);
         groupListContainer.innerHTML += grupoHTML;
@@ -21,6 +22,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+function Group_Opened(grupo){
+    console.log(grupo);
+    localStorage.setItem("Open-group",grupo);
+}
 
 //Click en Add Group
 document.getElementById('floating-button').addEventListener('click', function () {
@@ -53,7 +58,7 @@ document.getElementById('save-group').addEventListener('click', function () {
     document.getElementById('popUpGroup').style.display = 'none';
     var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
     groupsDiv = storedGroups;
-    groupsDiv.push({ titulo, color })
+    groupsDiv.push({ titulo, color }) 
     localStorage.setItem('groups', JSON.stringify(groupsDiv));
     color = '#ffffff';
 });

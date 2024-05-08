@@ -1,3 +1,52 @@
+var grupo = localStorage.getItem("Open-group");
+
+//Titulo
+const titulo = `<h2>${grupo}</h2>`;
+document.getElementById('group').innerHTML += titulo;
+Load_Tasks();
+
+function Load_Tasks(){
+    var groupListContainer = document.getElementById('carousel_grupo');
+    var storedTasks = JSON.parse(localStorage.getItem('tasks'));
+
+    if(storedTasks!==null){
+        for (let i = 0; i < storedTasks.length; i++) {
+            var grupoHTML = `
+            <div class="note_grupo" id="open-note">
+                <input type="checkbox" name="checkbox" value="0" checked="Check">
+                <div class="note_grupo_inside">
+                    <div class="header_note_grupo">
+                        <h4>Title</h4>
+                        <h4>Date</h4>
+                    </div>
+                    <p>
+                        Text
+                    </p>
+                </div>
+            </div>
+            `
+    
+            grupoHTML = grupoHTML.replace('Title',storedTasks[i].titulo);
+            grupoHTML = grupoHTML.replace('Date',storedTasks[i].fecha);
+            grupoHTML = grupoHTML.replace('Text',storedTasks[i].texto);
+            grupoHTML = grupoHTML.replace('Check',storedTasks[i].checked);
+            groupListContainer.innerHTML += grupoHTML;
+        }
+    }
+    console.log("hola");
+}
+
+document.getElementById('add-task').addEventListener('click', function(){
+    const titulo = document.getElementById('titulo').value; 
+    const fecha = document.getElementById('fecha').textContent; 
+    const texto = document.getElementById('texto').value; 
+    const checked = false;
+
+    var storedGroups = JSON.parse(localStorage.getItem('tasks')) ?? [];
+    groupsDiv = storedGroups;
+    groupsDiv.push({ titulo, fecha, texto, grupo, checked }) ;
+    localStorage.setItem('tasks', JSON.stringify(groupsDiv));
+}); 
 
 //AL PULSAR EL BUTTON DE AGREGAR
 document.getElementById('floating-button').addEventListener('click', function () {
