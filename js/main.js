@@ -3,12 +3,11 @@ var tasksDiv = [];
 
 //notas
 document.addEventListener('DOMContentLoaded', function () {
-    var tareaContainer = document.querySelector('.tareas-container');
-    // Retrieve groups from local storage
     var storedTasks = JSON.parse(localStorage.getItem('tasks'));
 
     for (let i = 0; i < storedTasks.length; i++) {
-        document.querySelector('.tareas-container').appendChild(createNota(storedTasks[i]["titulo"], storedTasks[i]["texto"]));
+        if (storedTasks[i]["grupo"] != "none")
+            document.querySelector('.tareas-container').appendChild(createNota(storedTasks[i]["titulo"], storedTasks[i]["texto"]));
     }
 
 });
@@ -30,26 +29,38 @@ document.getElementById('add-group').addEventListener('click', function () {
 document.getElementById('save-group').addEventListener('click', function () {
     var titulo = document.getElementById('tituloGroup').value;
     var color = document.getElementById("bgcolor").value;
-    var groupDiv = document.createElement('div');
-    groupDiv.classList.add('group');
-    groupDiv.style.backgroundColor = color;
-
-    var tituloGroup = document.createElement('p');
-    tituloGroup.textContent = titulo;
-    groupDiv.appendChild(tituloGroup);
-
-
-    document.querySelector('.carousel').appendChild(groupDiv);
-
-    // Limpia los campos de entrada y oculta la ventana emergente
-    document.getElementById('tituloGroup').value = '';
-    document.getElementById('bgcolor').value = '#ffffff';
-    document.getElementById('popUpGroup').style.display = 'none';
     var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
-    groupsDiv = storedGroups;
-    groupsDiv.push({ titulo, color });
-    localStorage.setItem('groups', JSON.stringify(groupsDiv));
-    color = '#ffffff';
+    var exist = false;
+
+    for (let i = 0; i < storedGroups.length; i++) {
+        if (storedGroups[i]["titulo"] == titulo) {
+            exist = true;
+        }
+    }
+    if (exist) {
+        alert('El grupo ya existe');
+    } else {
+
+        var groupDiv = document.createElement('div');
+        groupDiv.classList.add('group');
+        groupDiv.style.backgroundColor = color;
+
+        var tituloGroup = document.createElement('p');
+        tituloGroup.textContent = titulo;
+        groupDiv.appendChild(tituloGroup);
+
+
+        document.querySelector('.carousel').appendChild(groupDiv);
+
+        // Limpia los campos de entrada y oculta la ventana emergente
+        document.getElementById('tituloGroup').value = '';
+        document.getElementById('bgcolor').value = '#ffffff';
+        document.getElementById('popUpGroup').style.display = 'none';
+        groupsDiv = storedGroups;
+        groupsDiv.push({ titulo, color });
+        localStorage.setItem('groups', JSON.stringify(groupsDiv));
+        color = '#ffffff';
+    }
 });
 
 document.getElementById('cancel-group').addEventListener('click', function () {
