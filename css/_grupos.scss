@@ -1,7 +1,10 @@
 #carousel_grupos {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    //align-items: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
     //justify-content: space-evenly;
     //justify-items: flex-start;
     width: 100%;
