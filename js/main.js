@@ -1,27 +1,23 @@
-
 var groupsDiv = [];
 var tasksDiv = [];
 
-//Splash Screen
-/*
+//notas
 document.addEventListener('DOMContentLoaded', function () {
-    const splashContainer = document.querySelector('.splash-container');
-    const easy = document.querySelector('.easy');
-    const homeHeader = document.querySelector('.home-header');
-    setTimeout(function () {
-        easy.classList.add('fadeOut');
-        setTimeout(function () {
-            easy.textContent = 'E-Note';
-            easy.classList.remove('fadeOut');
-        }, 200); // Espera 0.1s para cambiar el texto
-    }, 1500);
-    setTimeout(function () {
-        splashContainer.classList.add('fadeOut');
-        homeHeader.classList.add('fadeIn');
-    }, 3000);
-
+    var storedTasks = JSON.parse(localStorage.getItem('tasks')) ?? [];
+    var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
+    if (storedTasks.length != null) {
+        for (let i = 0; i < storedTasks.length; i++) {
+            if (storedTasks[i]["grupo"] == "none")
+                document.querySelector('.tareas-container').appendChild(createNota(storedTasks[i]["titulo"], storedTasks[i]["texto"]));
+        }
+    }
+    if (storedGroups.length != null) {
+        for (let i = 0; i < storedGroups.length; i++) {
+            document.getElementById('group-list').appendChild(createGroup(storedGroups[i]["titulo"], storedGroups[i]["color"]));
+        }
+    }
 });
-*/
+
 
 //add group
 document.getElementById('add-group').addEventListener('click', function () {
@@ -39,6 +35,38 @@ document.getElementById('add-group').addEventListener('click', function () {
 document.getElementById('save-group').addEventListener('click', function () {
     var titulo = document.getElementById('tituloGroup').value;
     var color = document.getElementById("bgcolor").value;
+    var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
+    var exist = false;
+
+    for (let i = 0; i < storedGroups.length; i++) {
+        if (storedGroups[i]["titulo"] == titulo) {
+            exist = true;
+        }
+    }
+    if (exist) {
+        alert('El grupo ya existe');
+    } else {
+
+        document.querySelector('.carousel').appendChild(createGroup(titulo, color));
+
+        // Limpia los campos de entrada y oculta la ventana emergente
+        document.getElementById('tituloGroup').value = '';
+        document.getElementById('bgcolor').value = '#ffffff';
+        document.getElementById('popUpGroup').style.display = 'none';
+        groupsDiv = storedGroups;
+        groupsDiv.push({ titulo, color });
+        localStorage.setItem('groups', JSON.stringify(groupsDiv));
+        color = '#ffffff';
+    }
+});
+
+document.getElementById('cancel-group').addEventListener('click', function () {
+    document.getElementById('tituloGroup').value = '';
+    document.getElementById('bgcolor').value = '#ffffff';
+    document.getElementById('popUpGroup').style.display = 'none';
+});
+
+function createGroup(titulo, color) {
     var groupDiv = document.createElement('div');
     groupDiv.classList.add('group');
     groupDiv.style.backgroundColor = color;
@@ -47,25 +75,33 @@ document.getElementById('save-group').addEventListener('click', function () {
     tituloGroup.textContent = titulo;
     groupDiv.appendChild(tituloGroup);
 
+    groupDiv.addEventListener('dragover', function (event) {
+        event.preventDefault(); // Necesario para permitir soltar
+    });
+    groupDiv.addEventListener('drop', function (event) {
+        event.preventDefault(); // Evita la acción por defecto (como abrir un enlace)
 
-    document.querySelector('.carousel').appendChild(groupDiv);
+        // Obtén el id del elemento arrastrado desde los datos de la transferencia
+        var id = event.dataTransfer.getData('text');
+        var storedTask = JSON.parse(localStorage.getItem('tasks'));
+        var tasks = [];
+        tasks = storedTask;
 
-    // Limpia los campos de entrada y oculta la ventana emergente
-    document.getElementById('tituloGroup').value = '';
-    document.getElementById('bgcolor').value = '#ffffff';
-    document.getElementById('popUpGroup').style.display = 'none';
-    var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
-    groupsDiv = storedGroups;
-    groupsDiv.push({ titulo, color })
-    localStorage.setItem('groups', JSON.stringify(groupsDiv));
-    color = '#ffffff';
-});
 
-document.getElementById('cancel-group').addEventListener('click', function () {
-    document.getElementById('tituloGroup').value = '';
-    document.getElementById('bgcolor').value = '#ffffff';
-    document.getElementById('popUpGroup').style.display = 'none';
-});
+        for (let i = 0; i < tasks.length; i++) {
+            if (tasks[i]["titulo"] == id) {
+                tasks[i]["grupo"] = titulo;
+                console.log(tasks[i]["grupo"]);
+            }
+        }
+
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    });
+
+    return groupDiv;
+
+}
 
 //add task
 
@@ -77,10 +113,34 @@ document.getElementById('floating-button').addEventListener('click', function ()
 
 });
 
+
+
 document.getElementById('add-task').addEventListener('click', function () {
     var titulo = document.getElementById('titulo').value;
     var texto = document.getElementById('texto').value;
 
+    document.querySelector('.tareas-container').appendChild(createNota(titulo, texto));
+
+    // Limpia los campos de entrada y oculta la ventana emergente
+    document.getElementById('titulo').value = '';
+    document.getElementById('texto').value = '';
+    document.getElementById('popUpNote').style.display = 'none';
+
+    //localstorage
+    var storedTask = JSON.parse(localStorage.getItem('tasks')) ?? [];
+    tasksDiv = storedTask;
+    tasksDiv.push({ titulo, texto, "grupo": "none" });
+    localStorage.setItem('tasks', JSON.stringify(tasksDiv));
+
+});
+
+document.getElementById('cancel-task').addEventListener('click', function () {
+    document.getElementById('titulo').value = '';
+    document.getElementById('texto').value = '';
+    document.getElementById('popUpNote').style.display = 'none';
+});
+
+function createNota(titulo, texto) {
     var tareaDiv = document.createElement('div');
     tareaDiv.classList.add('tarea');
 
@@ -98,7 +158,10 @@ document.getElementById('add-task').addEventListener('click', function () {
     var fechaActual = new Date();
     var fechaP = document.createElement('div');
     fechaP.classList.add('fecha-tarea');
-    fechaP.textContent = fechaActual.toLocaleDateString();
+    var hora = fechaActual.getHours();
+    var minuto = fechaActual.getMinutes();
+    var segundo = fechaActual.getSeconds();
+    fechaP.textContent = `${hora}:${minuto}:${segundo}  - ` + fechaActual.toLocaleDateString();
 
     var textTarea = document.createElement('div');
     textTarea.classList.add('text-tarea');
@@ -115,23 +178,87 @@ document.getElementById('add-task').addEventListener('click', function () {
     contentTarea.appendChild(fechaP);
     contentTarea.appendChild(textTarea);
     tareaDiv.appendChild(contentTarea);
-    document.querySelector('.tareas-container').appendChild(tareaDiv);
+    tareaDiv.setAttribute('data-id', titulo);
+    tareaDiv.setAttribute('draggable', 'true');
+    tareaDiv.addEventListener('dragstart', handleDragStart);
+    //tareaDiv.addEventListener('dragend', handleDragEnd);
+    //tareaDiv.addEventListener('dragend', handleDragEnd);
+    //tareaDiv.addEventListener('drop', handleDrop);
 
-    // Limpia los campos de entrada y oculta la ventana emergente
-    document.getElementById('titulo').value = '';
-    document.getElementById('texto').value = '';
-    document.getElementById('popUpNote').style.display = 'none';
+    return tareaDiv;
+}
 
-    //localstorage
-    var storedTask = JSON.parse(localStorage.getItem('tasks')) ?? [];
-    tasksDiv = storedTask;
-    tasksDiv.push({ titulo, texto });
-    localStorage.setItem('tasks', JSON.stringify(tasksDiv));
+var dragSrcEl = null;
 
-});
+function handleDragStart(e) {
+    this.style.opacity = '0.8';
 
-document.getElementById('cancel-task').addEventListener('click', function () {
-    document.getElementById('titulo').value = '';
-    document.getElementById('texto').value = '';
-    document.getElementById('popUpNote').style.display = 'none';
-});
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text', e.target.dataset.id);
+    console.log(e.target.dataset.id);
+}
+
+function handleDragOver(e) {
+    if (e.preventDefault) {
+        e.preventDefault();
+    }
+
+    e.dataTransfer.dropEffect = 'move';
+
+    return false;
+}
+
+function dropForGroup(titulo) {
+    event.preventDefault(); // Evita la acción por defecto (como abrir un enlace)
+
+    // Obtén el id del elemento arrastrado desde los datos de la transferencia
+    var id = event.dataTransfer.getData('text');
+    var storedTask = JSON.parse(localStorage.getItem('tasks'));
+    console.log(id);
+    console.log(event.target.dataset.id);
+    var tasks = [];
+    tasks = storedTask;
+
+
+    for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i]["titulo"] == id) {
+            console.log(tasks[i]["titulo"]);
+            console.log(tasks[i]["grupo"]);
+            tasks[i]["grupo"] = titulo;
+            console.log(tasks[i]["grupo"]);
+        }
+    }
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+
+
+};
+/*
+function handleDragEnter(e) {
+    this.classList.add('over');
+}
+
+function handleDragLeave(e) {
+    this.classList.remove('over');
+}
+
+function handleDrop(e) {
+    if (e.stopPropagation) {
+        e.stopPropagation(); // stops the browser from redirecting.
+    }
+
+    if (dragSrcEl != this) {
+        dragSrcEl.innerHTML = this.innerHTML;
+        this.innerHTML = e.dataTransfer.getData('text/html');
+    }
+
+
+}
+*/
+function handleDragEnd(e) {
+    this.style.opacity = '1';
+
+    items.forEach(function (item) {
+        item.classList.remove('over');
+    });
+}
