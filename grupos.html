@@ -12,81 +12,56 @@
 <body style="margin: 2px;">
     <header class="home-header">
         EASY-NOTE
-        <section class="groups-container">
+        <div class="groups-container">
             <div class="groups-header">
                 <h2>Grupos</h2>
             </div>
-            <div id="group-list"></div>
-            <!--
-        <div class="carousel_grupos">
-        <a href="./grupo.html">
-            <div class="group_grupos" id="open-group1">
-                <img src="https://www.tooltyp.com/wp-content/uploads/2014/10/1900x920-8-beneficios-de-usar-imagenes-en-nuestros-sitios-web.jpg" alt="">
-                <p>Title</p>
-            </div>
-        </a>
-        <a href="./grupo.html">
-            <div class="group_grupos" id="open-group1">
-                <img src="https://www.educaciontrespuntocero.com/wp-content/uploads/2020/04/mejores-bancos-de-imagenes-gratis.jpg" alt="">
-                <p>Title</p>
-            </div>
-        </a>
-        <a href="./grupo.html">
-            <div class="group_grupos" id="open-group1">
-                <img src="https://i.blogs.es/ceda9c/dalle/450_1000.jpg" alt="">
-                <p>Title</p>
-            </div>
-        </a>
-        <a href="./grupo.html">
-            <div class="group_grupos" id="open-group1">
-                <img src="https://i.blogs.es/0ca9a6/aa/1366_2000.jpeg" alt="">
-                <p>Title</p>
-            </div>
-        </a>
-        <a href="./grupo.html">
-            <div class="group_grupos" id="open-group1">
-                <img src="https://www.lavanguardia.com/andro4all/hero/2023/04/6d8841b6-9d24-457a-95c5-0d3de1d7bf5f.png?width=768&aspect_ratio=16:9&format=nowebp" alt="">
-                <p>Title</p>
-            </div>
-        </a>
-        <a href="./grupo.html">
-            <div class="group_grupos" id="open-group1">
-                <img src="https://i.blogs.es/d559d0/jlacort_happy_elephant_running_across_the_desert._4k_26e6e27c-dbd6-4b14-b8ba-ac0841f2c25f/450_1000.jpeg" alt="">
-                <p>Title</p>
-            </div>
-        </a>
-        <a href="./grupo.html">
-            <div class="group_grupos" id="open-group1">
-                <img src="https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg" alt="">
-                <p>Title</p>
-            </div>
-        </a>
-        </div>
-      -->
+                <div id="carousel_grupos">
+                <a href="./grupo.html">
+                    <div class="group_grupos" id="open-group">
+                        <p>Title</p>
+                    </div>
+                </a>
+                <a href="./grupo.html">
+                    <div class="group_grupos" id="open-group">
+                        <p>Title</p>
+                    </div>
+                </a>
+                <a href="./grupo.html">
+                    <div class="group_grupos" id="open-group">
+                        <p>Title</p>
+                    </div>
+                </a>
+                </div>
+            
 
             </div>
-        </section>
+        </div>
     </header>
 
 
-
-    <section class="tareas-container">
-
-    </section>
-
-    <div id="popup" class="hidden">
-        <input id="titulo" placeholder="Nueva tarea" type="text">
-        <Label id="fecha"></Label>
-        <textarea id="texto"></textarea>
-        <div>
-            <button id="cancel-task"><i class='bx bx-x'></i></button>
-            <button id="add-task"><i class='bx bx-check'></i></button>
-        </div>
+    <div id="popUpGroup" class="hidden">
+    <div>
+      <input id="tituloGroup" placeholder="Nuevo Grupo" type="text">
+      <input type="color" id="bgcolor" name="bgcolor" value="#ffffff">
     </div>
+    <div>
+      <button id="cancel-group"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+          style="fill: rgba(0, 0, 0, 1);">
+          <path
+            d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z">
+          </path>
+        </svg></button>
+      <button id="save-group"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+          style="fill: rgba(0, 0, 0, 1);">
+          <path d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z"></path>
+        </svg></i></button>
+    </div>
+  </div>
 
     <button id="floating-button"><i class='bx bx-plus'></i></button>
     <button class="back-button"><a href="./index.html">&lt;</a></button>
-    <script src="js/grupo.js"></script>
+    <script src="js/grupos.js"></script>
 </body>
 
 </html>

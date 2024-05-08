@@ -1,24 +1,3 @@
-document.addEventListener('DOMContentLoaded', function () {
-    var groupListContainer = document.getElementById('group-list');
-    // Retrieve groups from local storage
-    var storedGroups = JSON.parse(localStorage.getItem('groups'));
-
-    for (let i = 0; i < storedGroups.length; i++) {
-
-        var groupDiv = document.createElement('div');
-        groupDiv.classList.add('group');
-        groupDiv.style.backgroundColor = storedGroups[i].color;
-
-        var tituloGroup = document.createElement('p');
-        tituloGroup.textContent = storedGroups[i].titulo;
-        groupDiv.appendChild(tituloGroup);
-
-        groupListContainer.appendChild(groupDiv);
-
-    }
-
-});
-
 
 //AL PULSAR EL BUTTON DE AGREGAR
 document.getElementById('floating-button').addEventListener('click', function () {
@@ -26,6 +5,7 @@ document.getElementById('floating-button').addEventListener('click', function ()
     var popup = document.getElementById('popup');
     popup.classList.remove('hidden');
     popup.style.display = 'flex';
+    console.log("Hola");
 
 });
 
