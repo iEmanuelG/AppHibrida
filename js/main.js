@@ -1,27 +1,18 @@
-
 var groupsDiv = [];
 var tasksDiv = [];
 
-//Splash Screen
-/*
+//notas
 document.addEventListener('DOMContentLoaded', function () {
-    const splashContainer = document.querySelector('.splash-container');
-    const easy = document.querySelector('.easy');
-    const homeHeader = document.querySelector('.home-header');
-    setTimeout(function () {
-        easy.classList.add('fadeOut');
-        setTimeout(function () {
-            easy.textContent = 'E-Note';
-            easy.classList.remove('fadeOut');
-        }, 200); // Espera 0.1s para cambiar el texto
-    }, 1500);
-    setTimeout(function () {
-        splashContainer.classList.add('fadeOut');
-        homeHeader.classList.add('fadeIn');
-    }, 3000);
+    var tareaContainer = document.querySelector('.tareas-container');
+    // Retrieve groups from local storage
+    var storedTasks = JSON.parse(localStorage.getItem('tasks'));
+
+    for (let i = 0; i < storedTasks.length; i++) {
+        document.querySelector('.tareas-container').appendChild(createNota(storedTasks[i]["titulo"], storedTasks[i]["texto"]));
+    }
 
 });
-*/
+
 
 //add group
 document.getElementById('add-group').addEventListener('click', function () {
@@ -56,7 +47,7 @@ document.getElementById('save-group').addEventListener('click', function () {
     document.getElementById('popUpGroup').style.display = 'none';
     var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
     groupsDiv = storedGroups;
-    groupsDiv.push({ titulo, color })
+    groupsDiv.push({ titulo, color });
     localStorage.setItem('groups', JSON.stringify(groupsDiv));
     color = '#ffffff';
 });
@@ -77,10 +68,34 @@ document.getElementById('floating-button').addEventListener('click', function ()
 
 });
 
+
+
 document.getElementById('add-task').addEventListener('click', function () {
     var titulo = document.getElementById('titulo').value;
     var texto = document.getElementById('texto').value;
 
+    document.querySelector('.tareas-container').appendChild(createNota(titulo, texto));
+
+    // Limpia los campos de entrada y oculta la ventana emergente
+    document.getElementById('titulo').value = '';
+    document.getElementById('texto').value = '';
+    document.getElementById('popUpNote').style.display = 'none';
+
+    //localstorage
+    var storedTask = JSON.parse(localStorage.getItem('tasks')) ?? [];
+    tasksDiv = storedTask;
+    tasksDiv.push({ titulo, texto, "grupo": "none" });
+    localStorage.setItem('tasks', JSON.stringify(tasksDiv));
+
+});
+
+document.getElementById('cancel-task').addEventListener('click', function () {
+    document.getElementById('titulo').value = '';
+    document.getElementById('texto').value = '';
+    document.getElementById('popUpNote').style.display = 'none';
+});
+
+function createNota(titulo, texto) {
     var tareaDiv = document.createElement('div');
     tareaDiv.classList.add('tarea');
 
@@ -98,7 +113,10 @@ document.getElementById('add-task').addEventListener('click', function () {
     var fechaActual = new Date();
     var fechaP = document.createElement('div');
     fechaP.classList.add('fecha-tarea');
-    fechaP.textContent = fechaActual.toLocaleDateString();
+    var hora = fechaActual.getHours();
+    var minuto = fechaActual.getMinutes();
+    var segundo = fechaActual.getSeconds();
+    fechaP.textContent = `${hora}:${minuto}:${segundo}  - ` + fechaActual.toLocaleDateString();
 
     var textTarea = document.createElement('div');
     textTarea.classList.add('text-tarea');
@@ -115,23 +133,64 @@ document.getElementById('add-task').addEventListener('click', function () {
     contentTarea.appendChild(fechaP);
     contentTarea.appendChild(textTarea);
     tareaDiv.appendChild(contentTarea);
-    document.querySelector('.tareas-container').appendChild(tareaDiv);
 
-    // Limpia los campos de entrada y oculta la ventana emergente
-    document.getElementById('titulo').value = '';
-    document.getElementById('texto').value = '';
-    document.getElementById('popUpNote').style.display = 'none';
+    tareaDiv.setAttribute('draggable', 'true');
+    tareaDiv.addEventListener('dragstart', handleDragStart);
+    tareaDiv.addEventListener('dragend', handleDragEnd);
+    tareaDiv.addEventListener('dragend', handleDragEnd);
+    tareaDiv.addEventListener('drop', handleDrop);
 
-    //localstorage
-    var storedTask = JSON.parse(localStorage.getItem('tasks')) ?? [];
-    tasksDiv = storedTask;
-    tasksDiv.push({ titulo, texto });
-    localStorage.setItem('tasks', JSON.stringify(tasksDiv));
+    return tareaDiv;
+}
 
-});
+var dragSrcEl = null;
 
-document.getElementById('cancel-task').addEventListener('click', function () {
-    document.getElementById('titulo').value = '';
-    document.getElementById('texto').value = '';
-    document.getElementById('popUpNote').style.display = 'none';
-});
+function handleDragStart(e) {
+    this.style.opacity = '0.4';
+
+    dragSrcEl = this;
+
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
+}
+
+function handleDragOver(e) {
+    if (e.preventDefault) {
+        e.preventDefault();
+    }
+
+    e.dataTransfer.dropEffect = 'move';
+
+    return false;
+}
+
+function handleDragEnter(e) {
+    this.classList.add('over');
+}
+
+function handleDragLeave(e) {
+    this.classList.remove('over');
+}
+
+class handleDrop {
+    constructor(e) {
+        if (e.stopPropagation) {
+            e.stopPropagation(); // stops the browser from redirecting.
+        }
+
+        if (dragSrcEl != this) {
+            dragSrcEl.innerHTML = this.innerHTML;
+            this.innerHTML = e.dataTransfer.getData('text/html');
+        }
+
+        return false;
+    }
+}
+
+function handleDragEnd(e) {
+    this.style.opacity = '1';
+
+    items.forEach(function (item) {
+        item.classList.remove('over');
+    });
+}
