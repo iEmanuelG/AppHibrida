@@ -77,9 +77,9 @@ function createGroup(titulo, color) {
 
 document.getElementById('floating-button').addEventListener('click', function () {
     document.getElementById('fecha').innerText = new Date().toLocaleDateString();
-    var popUpNote = document.getElementById('popUpNote');
-    popUpNote.classList.remove('hidden');
-    popUpNote.style.display = 'flex';
+    var popup = document.getElementById('popup');
+    popup.classList.remove('hidden');
+    popup.style.display = 'flex';
 
 });
 
