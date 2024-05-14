@@ -20,7 +20,7 @@
   -->
   <header class="home-header">
     EASY-NOTE
-    <section class="groups-container">
+    <section class="groups-container" style="background-color: white; width: 100%;">
       <div class="groups-header">
         <h2>Grupos</h2>
         <a href="./grupos.html">
@@ -49,7 +49,24 @@
     </section>
   </header>
 
-
+  <div id="popUpGroup" class="hidden">
+    <div>
+      <input id="tituloGroup" placeholder="Nuevo Grupo" type="text">
+      <input type="color" id="bgcolor" name="bgcolor" value="#ffffff">
+    </div>
+    <div>
+      <button id="cancel-group"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+          style="fill: rgba(0, 0, 0, 1);">
+          <path
+            d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z">
+          </path>
+        </svg></button>
+      <button id="save-group"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+          style="fill: rgba(0, 0, 0, 1);">
+          <path d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z"></path>
+        </svg></i></button>
+    </div>
+  </div>
 
   <section class="tareas-container">
 

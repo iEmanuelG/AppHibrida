@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "cleancache": "rimraf .parcel-cache",
     "clean": "rimraf dist",
     "build": "npm run clean && parcel build index.html && npx cap sync"
   },
