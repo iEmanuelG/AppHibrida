@@ -43,14 +43,13 @@ document.getElementById('save-group').addEventListener('click', function () {
     } else {
 
         document.querySelector('.carousel').appendChild(createGroup(titulo, color));
+        addGroupLocalhost(titulo, color);
 
         // Limpia los campos de entrada y oculta la ventana emergente
         document.getElementById('tituloGroup').value = '';
         document.getElementById('bgcolor').value = '#ffffff';
         document.getElementById('popUpGroup').style.display = 'none';
-        groupsDiv = storedGroups;
-        groupsDiv.push({ titulo, color });
-        localStorage.setItem('groups', JSON.stringify(groupsDiv));
+
         color = '#ffffff';
     }
 });
@@ -99,10 +98,7 @@ document.getElementById('add-task').addEventListener('click', function () {
     document.getElementById('popUpNote').style.display = 'none';
 
     //localstorage
-    var storedTask = JSON.parse(localStorage.getItem('tasks')) ?? [];
-    tasksDiv = storedTask;
-    tasksDiv.push({ titulo, texto, "fecha": fechaActual.toLocaleDateString(), "grupo": "none", "chacked": false });
-    localStorage.setItem('tasks', JSON.stringify(tasksDiv));
+    addTaskLocalhost(titulo, texto, fechaActual.toLocaleDateString(), "none", false);
 
 });
 
@@ -149,7 +145,61 @@ function createNota(titulo, texto) {
     contentTarea.appendChild(tituloTarea);
     contentTarea.appendChild(fechaP);
     contentTarea.appendChild(textTarea);
+    checkbox.addEventListener('click', function () {
+        if (checkbox.checked) {
+            contentTarea.style.textDecoration = 'line-through';
+            updateTaskLocalhost(titulo, true, 'checked');
+            contentTarea.style.opacity = '0.5';
+        } else {
+            contentTarea.style.textDecoration = 'none';
+            updateTaskLocalhost(titulo, false, 'checked');
+            contentTarea.style.opacity = '1';
+        }
+    });
     tareaDiv.appendChild(contentTarea);
 
     return tareaDiv;
+}
+
+
+function addTaskLocalhost(titulo, texto, fecha, grupo, checked) {
+    var storedTask = JSON.parse(localStorage.getItem('tasks')) ?? [];
+    tasksDiv = storedTask;
+    tasksDiv.push({ titulo, texto, "fecha": fecha, "grupo": grupo, "checked": checked });
+    localStorage.setItem('tasks', JSON.stringify(tasksDiv));
+}
+
+function addGroupLocalhost(titulo, color) {
+    var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
+    groups = storedGroups;
+    groups.push({ titulo, color });
+    localStorage.setItem('groups', JSON.stringify(groups));
+}
+
+function updateTaskLocalhost(titulo, data, dataToChange) {
+    var storedTask = JSON.parse(localStorage.getItem('tasks'));
+    var tasks = [];
+    tasks = storedTask;
+
+    for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i]["titulo"] == titulo) {
+            tasks[i][dataToChange] = data;
+        }
+    }
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function updateGroupLocalhost(titulo, data, dataToChange) {
+    var storedGroups = JSON.parse(localStorage.getItem('groups'));
+    var groups = [];
+    groups = storedGroups;
+
+    for (let i = 0; i < groups.length; i++) {
+        if (groups[i]["titulo"] == titulo) {
+            groups[i][dataToChange] = data;
+        }
+    }
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
