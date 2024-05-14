@@ -115,56 +115,60 @@ document.getElementById('cancel-task').addEventListener('click', function () {
 });
 
 function createNota(titulo, texto) {
-    var tareaDiv = document.createElement('div');
-    tareaDiv.classList.add('tarea');
+    var newNote = document.createElement('div');
+    newNote.classList.add('note_grupo');
 
-    var checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    tareaDiv.appendChild(checkbox);
+    // Create the checkbox
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = "checkbox";
+    checkbox.value = "0";
 
-    var tituloTarea = document.createElement('div');
-    tituloTarea.classList.add('titulo-tarea');
+    // Create the inner div
+    const innerDiv = document.createElement("div");
+    innerDiv.classList.add("note_grupo_inside");
 
-    var tituloH2 = document.createElement('h2');
-    tituloH2.textContent = titulo;
-    tituloTarea.appendChild(tituloH2);
+    // Create the header div
+    const header = document.createElement("div");
+    header.classList.add("header_note_grupo");
+
+    // Create the two h4 elements for title and date
+    const title = document.createElement("h4");
+    title.textContent = titulo;
+    header.appendChild(title);
 
     var fechaActual = new Date();
-    var fechaP = document.createElement('div');
-    fechaP.classList.add('fecha-tarea');
-    var hora = fechaActual.getHours();
-    var minuto = fechaActual.getMinutes();
-    var segundo = fechaActual.getSeconds();
-    fechaP.textContent = `${hora}:${minuto}:${segundo}  - ` + fechaActual.toLocaleDateString();
+    var date = document.createElement('div');
+    date.classList.add('fecha-tarea');
+    date.textContent = fechaActual.toLocaleDateString();
 
-    var textTarea = document.createElement('div');
-    textTarea.classList.add('text-tarea');
-
-    var textoP = document.createElement('p');
-    textoP.textContent = texto;
-    textTarea.appendChild(textoP);
-
-    var contentTarea = document.createElement('div');
-    contentTarea.classList.add('content-tarea');
+    // Create the paragraph element
+    const paragraph = document.createElement("p");
+    paragraph.classList.add('text-tarea');
+    paragraph.textContent = texto;
+    innerDiv.appendChild(paragraph);
 
 
-    contentTarea.appendChild(tituloTarea);
-    contentTarea.appendChild(fechaP);
-    contentTarea.appendChild(textTarea);
+    header.appendChild(title);
+    header.appendChild(date);
+    innerDiv.appendChild(header);
+    innerDiv.appendChild(paragraph);
+    newNote.appendChild(checkbox);
+
+
     checkbox.addEventListener('click', function () {
         if (checkbox.checked) {
-            contentTarea.style.textDecoration = 'line-through';
+            innerDiv.style.textDecoration = 'line-through';
             updateTaskLocalhost(titulo, true, 'checked');
-            contentTarea.style.opacity = '0.5';
+            innerDiv.style.opacity = '0.5';
         } else {
-            contentTarea.style.textDecoration = 'none';
+            innerDiv.style.textDecoration = 'none';
             updateTaskLocalhost(titulo, false, 'checked');
-            contentTarea.style.opacity = '1';
+            innerDiv.style.opacity = '1';
         }
     });
-    tareaDiv.appendChild(contentTarea);
-
-    return tareaDiv;
+    newNote.appendChild(innerDiv);
+    return newNote;
 }
 
 
