@@ -1,5 +1,6 @@
 var groupsDiv = [];
 var tasksDiv = [];
+var draggedElementId;
 
 //notas
 document.addEventListener('DOMContentLoaded', function () {
@@ -25,12 +26,6 @@ document.getElementById('add-group').addEventListener('click', function () {
     popUpGroup.classList.remove('hidden');
     popUpGroup.style.display = 'flex';
 });
-
-
-
-/*document.getElementById("bgcolor").addEventListener("input", function () {
-    document.body.style.backgroundColor = this.value;
-}, false);*/
 
 document.getElementById('save-group').addEventListener('click', function () {
     var titulo = document.getElementById('tituloGroup').value;
@@ -74,30 +69,6 @@ function createGroup(titulo, color) {
     var tituloGroup = document.createElement('p');
     tituloGroup.textContent = titulo;
     groupDiv.appendChild(tituloGroup);
-
-    groupDiv.addEventListener('dragover', function (event) {
-        event.preventDefault(); // Necesario para permitir soltar
-    });
-    groupDiv.addEventListener('drop', function (event) {
-        event.preventDefault(); // Evita la acción por defecto (como abrir un enlace)
-
-        // Obtén el id del elemento arrastrado desde los datos de la transferencia
-        var id = event.dataTransfer.getData('text');
-        var storedTask = JSON.parse(localStorage.getItem('tasks'));
-        var tasks = [];
-        tasks = storedTask;
-
-
-        for (let i = 0; i < tasks.length; i++) {
-            if (tasks[i]["titulo"] == id) {
-                tasks[i]["grupo"] = titulo;
-                console.log(tasks[i]["grupo"]);
-            }
-        }
-
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-
-    });
 
     return groupDiv;
 
@@ -179,61 +150,6 @@ function createNota(titulo, texto) {
     contentTarea.appendChild(fechaP);
     contentTarea.appendChild(textTarea);
     tareaDiv.appendChild(contentTarea);
-    tareaDiv.setAttribute('data-id', titulo);
-    tareaDiv.setAttribute('draggable', 'true');
-    tareaDiv.addEventListener('dragstart', handleDragStart);
-    //tareaDiv.addEventListener('dragend', handleDragEnd);
-    //tareaDiv.addEventListener('dragend', handleDragEnd);
-    //tareaDiv.addEventListener('drop', handleDrop);
 
     return tareaDiv;
-}
-
-var dragSrcEl = null;
-
-function handleDragStart(e) {
-    this.style.opacity = '0.8';
-
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text', e.target.dataset.id);
-    console.log(e.target.dataset.id);
-}
-
-function handleDragOver(e) {
-    if (e.preventDefault) {
-        e.preventDefault();
-    }
-
-    e.dataTransfer.dropEffect = 'move';
-
-    return false;
-}
-/*
-function handleDragEnter(e) {
-    this.classList.add('over');
-}
-
-function handleDragLeave(e) {
-    this.classList.remove('over');
-}
-
-function handleDrop(e) {
-    if (e.stopPropagation) {
-        e.stopPropagation(); // stops the browser from redirecting.
-    }
-
-    if (dragSrcEl != this) {
-        dragSrcEl.innerHTML = this.innerHTML;
-        this.innerHTML = e.dataTransfer.getData('text/html');
-    }
-
-
-}
-*/
-function handleDragEnd(e) {
-    this.style.opacity = '1';
-
-    items.forEach(function (item) {
-        item.classList.remove('over');
-    });
 }
