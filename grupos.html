@@ -1,58 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>E-Notes</title>
+      <link rel="stylesheet" href="css/main.scss" />
+      <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>E-Notes</title>
-    <link rel="stylesheet" href="css/main.scss" />
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-</head>
-
-<body style="margin: 2px;">
-    <header class="home-header">
-        EASY-NOTE
-        <div class="groups-container">
-            <div class="groups-header">
-                <h2>Grupos</h2>
-            </div>
-                <div id="carousel_grupos">
-                <a href="./grupo.html" onclick="Group_Opened('Title1')">
-                    <div class="group_grupos" id="open-group">
-                            <p>Title1</p>
-                    </div>
-                </a>
-                </div>
-            </div>
+  <body style="margin: 2px;">
+      <header class="home-header">
+          EASY-NOTE
+          <div class="groups-container">
+              <div class="groups-header">
+                  <h2>Grupos</h2>
+              </div>
+                  <div id="carousel_grupos">
+                  <a href="./grupo.html" onclick="Group_Opened('Title1')">
+                      <div class="group_grupos" id="open-group">
+                              <p>Title1</p>
+                      </div>
+                  </a>
+                  </div>
+              </div>
+          </div>
+      </header>
+      <div id="popUpGroup" class="hidden">
+        <div>
+          <input id="tituloGroup" placeholder="Nuevo Grupo" type="text">
+          <input type="color" id="bgcolor" name="bgcolor" value="#ffffff">
         </div>
-    </header>
+        <div>
+          <button id="cancel-group"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+              style="fill: rgba(0, 0, 0, 1);">
+              <path
+                d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z">
+              </path>
+            </svg></button>
+          <button id="save-group"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+              style="fill: rgba(0, 0, 0, 1);">
+              <path d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z"></path>
+            </svg></i></button>
+        </div>
+      </div>
 
-
-    <div id="popUpGroup" class="hidden">
-    <div>
-      <input id="tituloGroup" placeholder="Nuevo Grupo" type="text">
-      <input type="color" id="bgcolor" name="bgcolor" value="#ffffff">
-    </div>
-    <div>
-      <button id="cancel-group"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
-          style="fill: rgba(0, 0, 0, 1);">
-          <path
-            d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z">
-          </path>
-        </svg></button>
-      <button id="save-group"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
-          style="fill: rgba(0, 0, 0, 1);">
-          <path d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z"></path>
-        </svg></i></button>
-    </div>
-  </div>
-
-    <button id="floating-button"><i class='bx bx-plus'></i></button>
-    <button class="back-button"><a href="./index.html">&lt;</a></button>
-    <script src="js/grupos.js"></script>
-</body>
-
+      <button id="floating-button"><i class='bx bx-plus'></i></button>
+      <button class="back-button"><a href="./index.html">&lt;</a></button>
+      <script src="js/grupos.js"></script>
+  </body>
 </html>
+
 
 <script>
     const homeHeader = document.querySelector('.home-header');
