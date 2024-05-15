@@ -35,35 +35,43 @@
 .carousel {
     display: flex;
     width: 100%;
-    overflow: hidden;
-    overflow-x: scroll;
-    flex-wrap: nowrap;
+    overflow-x: auto;
 }
 
 .group {
     background-color: var(--main-color);
     border: none;
-    padding: 5px;
     margin: 5px;
     border-radius: 15px;
     font-size: 12;
     font-weight: 900;
-    height: 208px;
-    width: 208px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: var(--title-font);
 
-
+    >* {
+        // Add this block
+        box-sizing: border-box;
+        width: 150;
+        height: 208px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 #add-group {
+    box-sizing: border-box;
     height: fit-content;
     width: fit-content;
     padding: 20px;
     border-radius: 100%;
     margin-left: -64px;
+
+    >* {
+        // Add this block
+        box-sizing: border-box;
+        width: fit-content;
+        height: fit-content;
+    }
 }
 
 /* agregar grupo*/
@@ -300,7 +308,6 @@ textarea {
 }
 
 #group-list-select {
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -311,13 +318,11 @@ textarea {
 }
 
 .group-button {
-    box-sizing: border-box;
     width: 90%;
-    border-radius: 15px;
+    border-radius: 10px;
     margin-bottom: 5px;
     font-weight: 900;
     font-family: var(--title-font);
-    overflow: visible;
     padding: 10px;
 }
 
