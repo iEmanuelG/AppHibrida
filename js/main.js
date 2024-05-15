@@ -4,26 +4,28 @@ var draggedElementId;
 
 //notas
 document.addEventListener('DOMContentLoaded', function () {
-    var svg = svgFolderGenerator();
-
-    var storedTasks = JSON.parse(localStorage.getItem('tasks')) ?? [];
     var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
-    if (storedTasks.length != null) {
-        for (let i = 0; i < storedTasks.length; i++) {
-            if (storedTasks[i]["grupo"] == "none") {
-                var tarea = createNota(storedTasks[i]["titulo"], storedTasks[i]["texto"]);
-                tarea.appendChild(svg);
-                document.querySelector('.tareas-container').appendChild(tarea);
-            }
-
-        }
-    }
+    showTasks();
     if (storedGroups.length != null) {
         for (let i = 0; i < storedGroups.length; i++) {
             document.getElementById('group-list').appendChild(createGroup(storedGroups[i]["titulo"], storedGroups[i]["color"]));
         }
     }
 });
+
+function showTasks() {
+    var tareasContainer = document.querySelector('.tareas-container');
+    tareasContainer.innerHTML = '';
+    var storedTasks = JSON.parse(localStorage.getItem('tasks')) ?? [];
+    if (storedTasks.length != null) {
+        for (let i = 0; i < storedTasks.length; i++) {
+            if (storedTasks[i]["grupo"] == "none") {
+                var tarea = createNota(storedTasks[i]["titulo"], storedTasks[i]["texto"]);
+                tareasContainer.appendChild(tarea);
+            }
+        }
+    }
+}
 
 
 //add group
@@ -154,20 +156,22 @@ function createNota(titulo, texto) {
     innerDiv.appendChild(header);
     innerDiv.appendChild(paragraph);
     newNote.appendChild(checkbox);
-
+    newNote.appendChild(svgFolderGenerator(titulo));
 
     checkbox.addEventListener('click', function () {
         if (checkbox.checked) {
-            innerDiv.style.textDecoration = 'line-through';
+            newNote.style.textDecoration = 'line-through';
             updateTaskLocalhost(titulo, true, 'checked');
-            innerDiv.style.opacity = '0.5';
+            newNote.style.opacity = '0.5';
         } else {
-            innerDiv.style.textDecoration = 'none';
+            newNote.style.textDecoration = 'none';
             updateTaskLocalhost(titulo, false, 'checked');
-            innerDiv.style.opacity = '1';
+            newNote.style.opacity = '1';
         }
     });
+
     newNote.appendChild(innerDiv);
+
     return newNote;
 }
 
@@ -215,24 +219,54 @@ function updateGroupLocalhost(titulo, data, dataToChange) {
 }
 
 
-function svgFolderGenerator() {
-    var div = document.createElement('div');
-    var svg = document.createElement('svg');
-    //<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M13 9h-2v3H8v2h3v3h2v-3h3v-2h-3z"></path><path d="M20 5h-8.586L9.707 3.293A.996.996 0 0 0 9 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2zM4 19V7h16l.002 12H4z"></path></svg>
-    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    svg.setAttribute('width', '36');
-    svg.setAttribute('height', '36');
-    svg.setAttribute('viewBox', '0 0 24 24');
-    svg.setAttribute('style', 'fill: rgba(0, 0, 0, 1);transform: ;msFilter:;');
+function svgFolderGenerator(titleTask) {
+    let button = document.createElement('button');
 
-    var path1 = document.createElement('path');
-    path1.setAttribute('d', 'M13 9h-2v3H8v2h3v3h2v-3h3v-2h-3z');
+    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M13 9h-2v3H8v2h3v3h2v-3h3v-2h-3z"></path><path d="M20 5h-8.586L9.707 3.293A.996.996 0 0 0 9 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2zM4 19V7h16l.002 12H4z"></path></svg>';
+    button.classList.add('folder-button');
 
-    var path2 = document.createElement('path');
-    path2.setAttribute('d', 'M20 5h-8.586L9.707 3.293A.996.996 0 0 0 9 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2zM4 19V7h16l.002 12H4z');
-    svg.appendChild(path1);
-    svg.appendChild(path2);
-    div.appendChild(svg);
+    button.addEventListener('click', function () {
+        showGroupList(titleTask);
+        var popUpGroup = document.getElementById('popUpSelectGroup');
+        popUpGroup.classList.remove('hidden');
+        popUpGroup.style.display = 'flex';
 
-    return div;
+    });
+
+    return button;
+}
+
+function showGroupList(titleTask) {
+    var groupList = document.getElementById('group-list-select');
+
+    var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
+
+    for (let i = 0; i < storedGroups.length; i++) {
+        var button = document.createElement('button');
+        document.getElementById('close-select-group').addEventListener('click', closeSelectGroup);
+
+        var grupo = storedGroups[i]["titulo"];
+
+        button.innerText = grupo;
+
+        button.style.backgroundColor = storedGroups[i]["color"];
+
+
+        button.classList.add('group-button');
+
+        storedGroups[i]["color"] == '#ffffff' ? button.style.border = 'solid 1px var(--third-color)' : button.style.border = 'none';
+
+        button.addEventListener('click', function () {
+            updateTaskLocalhost(titleTask, grupo, 'grupo');
+            showTasks();
+            closeSelectGroup();
+        });
+
+        groupList.appendChild(button);
+    }
+}
+
+function closeSelectGroup() {
+    document.getElementById('popUpSelectGroup').style.display = 'none';
+    document.getElementById('group-list-select').innerHTML = '';
 }

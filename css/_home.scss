@@ -247,11 +247,79 @@ textarea {
     }
 }
 
+.folder-button {
+    margin: 5px;
+    padding: 5px;
+    border: none;
+}
 
 
+#popUpSelectGroup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid var(--third-color);
+    border-radius: 15px;
+    z-index: 100;
+    height: 50%;
+    width: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#group-select-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 12;
+    font-family: var(--title-font);
+    height: 20%;
+
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24;
+        justify-self: flex-start;
+        font-family: var(--title-font);
+        border: none;
+        background: none;
+    }
+
+    h3 {
+        justify-self: flex-end;
 
 
+    }
 
+}
+
+#group-list-select {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    overflow-y: auto;
+
+}
+
+.group-button {
+    box-sizing: border-box;
+    width: 90%;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    font-weight: 900;
+    font-family: var(--title-font);
+    overflow: visible;
+    padding: 10px;
+}
 
 
 
