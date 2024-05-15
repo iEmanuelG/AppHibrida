@@ -89,7 +89,7 @@ body {
     background: white;
     border: 1px solid var(--third-color);
     border-radius: 15px;
-    z-index: 100;
+    z-index: 50;
     height: fit-content;
     width: 80%;
     flex-direction: column;
@@ -123,6 +123,7 @@ body {
     align-items: center;
     padding: 5px;
     margin: 5px;
+    z-index: 100;
 }
 
 #popup {

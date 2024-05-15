@@ -1,17 +1,29 @@
-.carousel_grupos {
+#carousel_grupos {
     display: flex;
-    align-content: start;
-    width: 100%;
-    height: 600px;
-    overflow: hidden;
+    flex-direction: row;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: fit-content;
+    height: fit-content;
+    overflow: scroll;
     overflow-y: scroll;
+    padding: 0px;
+    padding: 7%;
     padding-top: 10px;
     flex-wrap: wrap;
+    max-height: 630px;
 }
 
-.carousel_grupos>a {
+#carousel_grupos>a {
     text-decoration: none;
     color: black;
+}
+
+.groups-header{
+    h2 {
+        margin-left: 20px;
+    }
 }
 
 .group_grupos {
@@ -29,20 +41,36 @@
     font-family: var(--title-font);
 }
 
+.group_grupos1 {
+    //background-color: var(--main-color);
+    border: none;
+    padding: 5px;
+    margin: 15px;
+    border-radius: 15px;
+    font-size: 12;
+    font-weight: 900;
+    height: 130px;
+    width: 130px;
+    display: grid;
+    flex: 1;
+    font-family: var(--title-font);
+}
 
+.group_grupos1>p {
+    font-size: 1rem;
+    align-self: center;
+    justify-self: center;
+    color: #fff;
+    text-shadow: 0 0 5px rgb(0, 0, 0);
+}
 
-.group_grupos>img {
-    grid-area: 1/1;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    filter: blur(3px) brightness(85%);
+.groups-container{
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .group_grupos>p {
     font-size: 1rem;
-    grid-area: 1/1;
-    z-index: 1;
     align-self: center;
     justify-self: center;
     color: #fff;

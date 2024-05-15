@@ -1,24 +1,59 @@
-document.addEventListener('DOMContentLoaded', function () {
-    var groupListContainer = document.getElementById('group-list');
-    // Retrieve groups from local storage
-    var storedGroups = JSON.parse(localStorage.getItem('groups'));
+var grupo = localStorage.getItem("Open-group");
 
-    for (let i = 0; i < storedGroups.length; i++) {
+//Titulo
+const titulo = `<h2>${grupo}</h2>`;
+document.getElementById('group').innerHTML += titulo;
+Load_Tasks();
 
-        var groupDiv = document.createElement('div');
-        groupDiv.classList.add('group');
-        groupDiv.style.backgroundColor = storedGroups[i].color;
+function Load_Tasks(){
+    var groupListContainer = document.getElementById('carousel_grupo');
+    var storedTasks = JSON.parse(localStorage.getItem('tasks'));
 
-        var tituloGroup = document.createElement('p');
-        tituloGroup.textContent = storedGroups[i].titulo;
-        groupDiv.appendChild(tituloGroup);
-
-        groupListContainer.appendChild(groupDiv);
-
+    if(storedTasks!==null){
+        for (let i = 0; i < storedTasks.length; i++) {
+            if(storedTasks[i].grupo === grupo){
+                var grupoHTML = `
+                <div class="note_grupo" id="open-note">
+                    <input type="checkbox" name="checkbox" value="0" Check>
+                    <div class="note_grupo_inside">
+                        <div class="header_note_grupo">
+                            <h4>Title</h4>
+                            <h4>Date</h4>
+                        </div>
+                        <p>
+                            Text
+                        </p>
+                    </div>
+                </div>
+                `
+        
+                grupoHTML = grupoHTML.replace('Title',storedTasks[i].titulo);
+                grupoHTML = grupoHTML.replace('Date',storedTasks[i].fecha);
+                grupoHTML = grupoHTML.replace('Text',storedTasks[i].texto);
+                var check = storedTasks[i].check;
+                console.log(check);
+                if(check)
+                    grupoHTML = grupoHTML.replace('Check','checked');
+                else 
+                    grupoHTML = grupoHTML.replace('Check',"");
+                groupListContainer.innerHTML += grupoHTML;
+            }
+        }
     }
+    console.log("hola");
+}
 
-});
+document.getElementById('add-task').addEventListener('click', function(){
+    const titulo = document.getElementById('titulo').value; 
+    const fecha = document.getElementById('fecha').textContent; 
+    const texto = document.getElementById('texto').value; 
+    const check = false;
 
+    var storedGroups = JSON.parse(localStorage.getItem('tasks')) ?? [];
+    groupsDiv = storedGroups;
+    groupsDiv.push({ titulo, fecha, texto, grupo, check }) ;
+    localStorage.setItem('tasks', JSON.stringify(groupsDiv));
+}); 
 
 //AL PULSAR EL BUTTON DE AGREGAR
 document.getElementById('floating-button').addEventListener('click', function () {
@@ -26,6 +61,7 @@ document.getElementById('floating-button').addEventListener('click', function ()
     var popup = document.getElementById('popup');
     popup.classList.remove('hidden');
     popup.style.display = 'flex';
+    console.log("Hola");
 
 });
 
