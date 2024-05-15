@@ -138,6 +138,7 @@ document.getElementById('add-task').addEventListener('click', function () {
 
     //localstorage
     addTaskLocalhost(titulo, texto, fechaActual.toLocaleDateString(), "none", false);
+    document.getElementById('floating-button').style.display = 'flex';
 
 });
 
@@ -145,6 +146,7 @@ document.getElementById('cancel-task').addEventListener('click', function () {
     document.getElementById('titulo').value = '';
     document.getElementById('texto').value = '';
     document.getElementById('popup').style.display = 'none';
+    document.getElementById('floating-button').style.display = 'flex';
 });
 
 function createNota(titulo, texto) {
@@ -205,13 +207,14 @@ function createNota(titulo, texto) {
     newNote.style.paddingRight = '10px';
     newNote.style.userSelect = 'none';
 
+
     let timerId = null;
     const holdTime = 2000; // time in milliseconds
 
     newNote.addEventListener('touchstart', function () {
-        timerId = setTimeout(function () {
+        /*timerId = setTimeout(function () {
             newNote.style.opacity = '0.5';
-        }, 500);
+        }, 500);*/
         timerId = setTimeout(function () {
             confirm('¿Estás seguro de que quieres eliminar esta nota?') ?
                 deleteItem(titulo, 'tasks') : null;
@@ -223,7 +226,37 @@ function createNota(titulo, texto) {
         clearTimeout(timerId);
     });
 
+    newNote.addEventListener('click', function () {
+        var floatingButton = document.getElementById('floating-button');
+        floatingButton.style.display = 'none';
+
+        var popup = document.getElementById('popup');
+        document.getElementById('titulo').value = titulo;
+        document.getElementById('texto').value = texto;
+
+        popup.style.width = "90%";
+        popup.style.height = "95%";
+        popup.classList.remove = "hidden";
+        popup.style.display = 'flex';
+    });
+
     return newNote;
+}
+
+function showNota(titulo, texto) {
+    var floatingButton = document.getElementById('floating-button');
+    floatingButton.style.display = 'none';
+
+    var popup = document.getElementById('popup');
+    document.getElementById('titulo').value = titulo;
+    document.getElementById('texto').value = texto;
+
+    popup.style.width = "90%";
+    popup.style.height = "95%";
+    popup.classList.remove = "hidden";
+    popup.style.display = 'flex';
+
+
 }
 
 function deleteItem(titulo, itemType) {
@@ -343,7 +376,6 @@ function showGroupList(titleTask) {
         groupList.appendChild(button);
     }
 }
-
 
 function closeSelectGroup() {
     document.getElementById('popUpSelectGroup').style.display = 'none';
