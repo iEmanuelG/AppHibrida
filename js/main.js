@@ -316,12 +316,15 @@ function showGroupList(titleTask) {
 
     var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
 
+    var groups = [];
+
     for (let i = 0; i < storedGroups.length; i++) {
+
         var button = document.createElement('button');
         document.getElementById('close-select-group').addEventListener('click', closeSelectGroup);
 
         var grupo = storedGroups[i]["titulo"];
-
+        groups.push(grupo);
         button.innerText = grupo;
 
         button.style.backgroundColor = storedGroups[i]["color"];
@@ -332,7 +335,7 @@ function showGroupList(titleTask) {
         storedGroups[i]["color"] == '#ffffff' ? button.style.border = 'solid 1px var(--third-color)' : button.style.border = 'none';
 
         button.addEventListener('click', function () {
-            updateTaskLocalhost(titleTask, grupo, 'grupo');
+            updateTaskLocalhost(titleTask, groups[i], 'grupo');
             showTasks();
             closeSelectGroup();
         });
@@ -340,6 +343,7 @@ function showGroupList(titleTask) {
         groupList.appendChild(button);
     }
 }
+
 
 function closeSelectGroup() {
     document.getElementById('popUpSelectGroup').style.display = 'none';
