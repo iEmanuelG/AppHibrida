@@ -188,6 +188,19 @@ function createNota(titulo, texto) {
     header.appendChild(date);
     innerDiv.appendChild(header);
     innerDiv.appendChild(paragraph);
+    innerDiv.addEventListener('click', function () {
+        var floatingButton = document.getElementById('floating-button');
+        floatingButton.style.display = 'none';
+
+        var popup = document.getElementById('popup');
+        document.getElementById('titulo').value = titulo;
+        document.getElementById('texto').value = texto;
+
+        popup.style.width = "90%";
+        popup.style.height = "95%";
+        popup.classList.remove = "hidden";
+        popup.style.display = 'flex';
+    });
     newNote.appendChild(checkbox);
     newNote.appendChild(svgFolderGenerator(titulo));
 
@@ -224,20 +237,6 @@ function createNota(titulo, texto) {
     newNote.addEventListener('touchend', function () {
         newNote.style.opacity = '1';
         clearTimeout(timerId);
-    });
-
-    newNote.addEventListener('click', function () {
-        var floatingButton = document.getElementById('floating-button');
-        floatingButton.style.display = 'none';
-
-        var popup = document.getElementById('popup');
-        document.getElementById('titulo').value = titulo;
-        document.getElementById('texto').value = texto;
-
-        popup.style.width = "90%";
-        popup.style.height = "95%";
-        popup.classList.remove = "hidden";
-        popup.style.display = 'flex';
     });
 
     return newNote;
