@@ -87,12 +87,16 @@ function createGroup(titulo, color) {
     let timerId = null;
     const holdTime = 2000; // time in milliseconds
 
-    groupDiv.addEventListener('touchstart', function () {
+    groupDiv.addEventListener('click', function () {
+        localStorage.setItem("Open-group", titulo);
+        location.href = "./grupo.html";
+    });
 
+    groupDiv.addEventListener('touchstart', function () {
 
         timerId = setTimeout(function () {
             groupDiv.style.opacity = '0.5';
-        }, 500);
+        }, 1000);
         timerId = setTimeout(function () {
             confirm('¿Estás seguro de que quieres eliminar este grupo y las notas en este?') ?
                 deleteItem(titulo, 'groups') : null;
