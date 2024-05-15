@@ -4,14 +4,21 @@ var draggedElementId;
 
 //notas
 document.addEventListener('DOMContentLoaded', function () {
-    var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
     showTasks();
+    showGroups();
+});
+
+function showGroups() {
+    var groupList = document.getElementById('group-list');
+    groupList.innerHTML = '';
+    var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
     if (storedGroups.length != null) {
         for (let i = 0; i < storedGroups.length; i++) {
-            document.getElementById('group-list').appendChild(createGroup(storedGroups[i]["titulo"], storedGroups[i]["color"]));
+            groupList.appendChild(createGroup(storedGroups[i]["titulo"], storedGroups[i]["color"]));
         }
     }
-});
+
+}
 
 function showTasks() {
     var tareasContainer = document.querySelector('.tareas-container');
@@ -76,6 +83,20 @@ function createGroup(titulo, color) {
     var tituloGroup = document.createElement('p');
     tituloGroup.textContent = titulo;
     groupDiv.appendChild(tituloGroup);
+
+    let timerId = null;
+    const holdTime = 2000; // time in milliseconds
+
+    groupDiv.addEventListener('touchstart', function () {
+        timerId = setTimeout(function () {
+            confirm('¿Estás seguro de que quieres eliminar este grupo?') ?
+                deleteItem(titulo, 'groups') : null;
+        }, holdTime);
+    });
+
+    groupDiv.addEventListener('touchend', function () {
+        clearTimeout(timerId);
+    });
 
     return groupDiv;
 
@@ -171,10 +192,50 @@ function createNota(titulo, texto) {
     });
 
     newNote.appendChild(innerDiv);
+    newNote.style.paddingRight = '10px';
+
+    let timerId = null;
+    const holdTime = 2000; // time in milliseconds
+
+    newNote.addEventListener('touchstart', function () {
+        timerId = setTimeout(function () {
+            confirm('¿Estás seguro de que quieres eliminar esta nota?') ?
+                deleteItem(titulo, 'tasks') : null;
+        }, holdTime);
+    });
+
+    newNote.addEventListener('touchend', function () {
+        clearTimeout(timerId);
+    });
 
     return newNote;
 }
 
+function deleteItem(titulo, itemType) {
+    var StoredData = JSON.parse(localStorage.getItem(itemType));
+
+    for (let i = 0; i < StoredData.length; i++) {
+        if (StoredData[i]["titulo"] == titulo) {
+            StoredData.splice(i, 1);
+        }
+    }
+
+
+    if (itemType == 'groups') {
+        var storedTask = JSON.parse(localStorage.getItem('tasks'));
+
+        for (let i = 0; i < storedTask.length; i++) {
+            if (storedTask[i]["grupo"] == titulo) {
+                storedTask.splice(i, 1);
+            }
+        }
+        localStorage.setItem('tasks', JSON.stringify(storedTask));
+    }
+
+    localStorage.setItem(itemType, JSON.stringify(StoredData));
+    showTasks();
+    showGroups();
+}
 
 function addTaskLocalhost(titulo, texto, fecha, grupo, checked) {
     var storedTask = JSON.parse(localStorage.getItem('tasks')) ?? [];
