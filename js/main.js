@@ -79,7 +79,7 @@ function createGroup(titulo, color) {
     var groupDiv = document.createElement('div');
     groupDiv.classList.add('group');
     groupDiv.style.backgroundColor = color;
-
+    groupDiv.style.userSelect = 'none';
     var tituloGroup = document.createElement('p');
     tituloGroup.textContent = titulo;
     groupDiv.appendChild(tituloGroup);
@@ -88,13 +88,19 @@ function createGroup(titulo, color) {
     const holdTime = 2000; // time in milliseconds
 
     groupDiv.addEventListener('touchstart', function () {
+
+
         timerId = setTimeout(function () {
-            confirm('¿Estás seguro de que quieres eliminar este grupo?') ?
+            groupDiv.style.opacity = '0.5';
+        }, 500);
+        timerId = setTimeout(function () {
+            confirm('¿Estás seguro de que quieres eliminar este grupo y las notas en este?') ?
                 deleteItem(titulo, 'groups') : null;
         }, holdTime);
     });
 
     groupDiv.addEventListener('touchend', function () {
+        groupDiv.style.opacity = '1';
         clearTimeout(timerId);
     });
 
@@ -193,11 +199,15 @@ function createNota(titulo, texto) {
 
     newNote.appendChild(innerDiv);
     newNote.style.paddingRight = '10px';
+    newNote.style.userSelect = 'none';
 
     let timerId = null;
     const holdTime = 2000; // time in milliseconds
 
     newNote.addEventListener('touchstart', function () {
+        timerId = setTimeout(function () {
+            newNote.style.opacity = '0.5';
+        }, 500);
         timerId = setTimeout(function () {
             confirm('¿Estás seguro de que quieres eliminar esta nota?') ?
                 deleteItem(titulo, 'tasks') : null;
@@ -205,6 +215,7 @@ function createNota(titulo, texto) {
     });
 
     newNote.addEventListener('touchend', function () {
+        newNote.style.opacity = '1';
         clearTimeout(timerId);
     });
 
@@ -246,9 +257,8 @@ function addTaskLocalhost(titulo, texto, fecha, grupo, checked) {
 
 function addGroupLocalhost(titulo, color) {
     var storedGroups = JSON.parse(localStorage.getItem('groups')) ?? [];
-    groups = storedGroups;
-    groups.push({ titulo, color });
-    localStorage.setItem('groups', JSON.stringify(groups));
+    storedGroups.push({ titulo, color });
+    localStorage.setItem('groups', JSON.stringify(storedGroups));
 }
 
 function updateTaskLocalhost(titulo, data, dataToChange) {
